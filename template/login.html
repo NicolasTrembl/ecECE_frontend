@@ -1,0 +1,27 @@
+<style>.login{visibility: hidden; opacity: 0;}</style>
+<link rel="stylesheet" href="styles/login.css" type="text/css">
+<div class="login" id="login_panel">
+    <form id="login_form">
+        <fieldset>
+            <legend>Se connecter</legend>
+            <div>
+                <label for="email_in">Votre mail</label>
+                <input type="email" id="email_in">
+            </div>
+            <br>
+            <div>
+                <label for="password_in">Votre mot de passe</label>
+                <i class="material-icons" id="eye" href="#" onclick="toggle_password_visibility()">
+                    visibility
+                </i>
+                <input type="password" id="password_in">
+            </div>
+            <div>
+                <label for="remember_me">Se souvenir de moi</label>
+                <input type="checkbox" id="remember_me">
+            </div>
+            <br>
+            <input type="submit" value="Confirmer">
+        </fieldset>
+    </form>
+</div>

@@ -1,0 +1,114 @@
+/* DESKTOP */
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 10vh;
+    margin-left: 2vw;
+    margin-right: 6vw;
+}
+
+nav > a {
+    color: snow;
+    text-decoration: none;
+}
+
+nav > a > i {            
+    font-size: 35px !important;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 1);
+}
+
+.logo {
+    width: 70px;
+    height: 70px;
+    border-radius: 25%;
+    filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, 1));
+
+}
+
+
+.selected-icon {            
+    animation: grow 100ms normal forwards;
+    animation-timing-function: ease-out;
+}
+
+@keyframes grow {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(1.7);
+    }
+}
+
+.mobile-nav {
+    display: none;
+}
+
+
+/* MOBILE */
+
+@media screen and (max-width: 768px) {
+    nav {
+        display: none;
+    }
+
+    .mobile-nav {
+        display: block;
+    }
+
+    .top-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 10vh;
+        color: snow;
+        padding: 0 6vw;
+    }
+
+    .side-bar {
+        height: 100%;
+        width: 0;
+        position: fixed;
+        z-index: 2;
+        top: 0;
+        right: 0;
+        background-color: #111;
+        overflow-x: hidden;
+        text-wrap: nowrap;
+        transition: 0.5s;
+        padding-top: 60px;
+    }
+
+    .side-bar > .close-size-bar {
+        position: absolute;
+        top: 0;
+        right: 25px;
+        font-size: 36px;
+        margin-left: 50px;
+    }
+
+    .side-bar >  a {
+        padding: 8px 8px 8px 32px;
+        text-decoration: none;
+        font-size: 25px;
+        color: #818181;
+        display: block;
+        transition: 0.3s;
+    }
+
+    .tap-out {
+        display: none;
+        width: 100vw;
+        height: 100vh;
+        z-index: 1;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+
+
+}

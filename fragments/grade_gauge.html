@@ -1,0 +1,85 @@
+<template id="grade-gauge">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .grade-gauge-inner-panel {
+            --deg: calc(var(--percent) * 2 * 1.35deg);
+            display: grid;
+            place-items: center;
+            overflow-x: hidden;
+
+            
+        }
+
+        .gauge {
+            height: var(--size);
+            width: var(--size);
+            aspect-ratio: 1;
+            background-image:
+                radial-gradient(closest-side, #266c6c 0%, #266c6c calc(100% - var(--thickness)), transparent calc(100% - var(--thickness) + 3px)),
+                conic-gradient(from -135deg, transparent 0deg calc(var(--min) - 1deg), var(--min-col) calc(var(--min) - 1deg), var(--min-col) calc(var(--min) + 2deg), transparent calc(var(--min) + 2deg)),
+                conic-gradient(from -135deg, limegreen 0deg var(--deg), transparent calc(var(--deg) + 1deg) 180deg),
+                conic-gradient(from -135deg, rgba(211, 211, 211, 0.3) 0deg 135deg, rgba(211, 211, 211, 0.3) 270deg, transparent 270deg);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: space-between;
+            text-align: center;
+        }
+
+        .gauge > div {
+            flex: 1 1 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .gauge-grade-wrapper {
+            margin-top: 35%;
+            padding-top: 16px;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        @media screen and (max-width: 900px) {
+           
+
+            .gauge-grade-wrapper {
+                margin-top: 30%;
+                padding-top: 8px;
+                font-size: 1.2rem;
+            }
+            
+        }
+
+
+        .toBottom{
+            height: 3vh;
+            margin: 4px;
+            overflow-y: hidden;
+            text-overflow: ellipsis;
+            font-size: smaller;
+        }
+
+
+    </style>    
+    <slot name="grade-var">
+
+    </slot>
+    <div class="grade-gauge-inner-panel">
+        <div class="gauge">
+            <div class="gauge-grade-wrapper">
+                <slot name="grade">??.?/??</slot>
+            </div>
+
+            <div class="toBottom">
+                <slot name="title">GRADES</slot>
+            </div>
+        </div>
+    </div>
+</template>

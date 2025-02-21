@@ -1,0 +1,87 @@
+
+.login {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.login > form > fieldset {
+    width: 30vw;
+    height: 35vh;
+    border: 2px solid snow;
+    border-radius: 16px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    
+}
+
+.login > form > fieldset > legend {
+    font-size: larger;
+    font-weight: bolder;
+    color: snow;
+}
+
+.login > form > fieldset > div > label {
+    margin-top: 8px;
+    font-size: large;
+    margin-bottom: 8px;
+    text-align: right;
+    width: 30%;
+}
+
+
+.login > form > fieldset > div > input {
+    background-color: transparent;
+    border: 2px solid snow;
+    border-radius: 8px;
+    color: snow;
+    padding: 8px;
+    width: 60%;
+
+}
+.login > form > fieldset > div > i {
+    cursor: pointer;
+
+}
+
+.login > form > fieldset > div {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.login > form > fieldset > a {
+    color: snow;
+    text-decoration: none;
+    font-size: small;
+    margin-top: 8px;
+    margin-bottom: 16px;
+}
+
+.login > form > fieldset > input {
+    background-color: transparent;
+    border: 2px solid snow;
+    border-radius: 8px;
+    color: snow;
+    padding: 8px;
+    margin-top: 16px;
+    width: 100%;
+    cursor: pointer;
+}
+
+
+.login {
+    visibility: visible !important;
+    opacity: 1 !important;
+}

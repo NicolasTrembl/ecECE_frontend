@@ -1,0 +1,241 @@
+.content-wrapper {
+    width: 100%;
+    height: 100%;  
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 4px 4px;
+    padding: 6px;
+}
+
+@media (min-width: 900px) {
+    .content-wrapper {
+        width: 100%;
+        height: 100%;  
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        gap: 4px 4px;
+        padding: 8px;
+        grid-auto-flow: row;
+        grid-template-areas:
+          "O O NE NE NE"
+          "O O SE SE SE";
+    }
+}
+
+/* UPCOMING COURSES */
+  
+.O { 
+    grid-area: O; 
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.upcoming-courses-panel {
+    margin: 16px;
+    display: flex;
+    flex: 1 1 auto;    
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.upcoming-courses-panel::-webkit-scrollbar {
+    display: none;
+}
+
+@media (min-width: 900px) {
+    /* .upcoming-courses-panel {
+        flex-direction: column;
+        justify-content: start;
+        margin-left: 4px;
+    } */
+    
+}
+
+/* COURSES */
+
+.SE {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;      
+
+}
+
+@media (min-width: 900px) {  
+    .SE { 
+        grid-area: SE; 
+        display: grid; 
+        grid-template-columns: 1fr 1fr; 
+        grid-template-rows: 1fr; 
+        gap: 0px 0px; 
+        grid-template-areas: 
+        "SE_O SE_E"; 
+    }
+    
+}
+
+.SE_O { 
+    grid-area: SE_O; 
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.SE_E { 
+    grid-area: SE_E; 
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.recent-courses-panel, .pinned-courses-panel {
+    margin: 16px;
+    display: flex;
+    flex: 1 1 auto;    
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.recent-courses-panel::-webkit-scrollbar, .pinned-courses-panel::-webkit-scrollbar {
+    display: none;
+}
+
+@media (min-width: 900px) {
+    .recent-courses-panel, .pinned-courses-panel {
+        flex-direction: row;
+        margin-left: 4px;
+    }
+}
+
+/* GRADES */
+
+.NE { 
+    grid-area: NE; 
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    overflow-x: visible;
+}
+
+.sem-select {
+    background-color: transparent;
+    border: none;
+    color: snow;
+    font-size: inherit;
+    font-style: inherit;
+    font-weight: inherit;
+    max-width: 15vw;
+    text-overflow: ellipsis;
+}
+
+.sem-select > option {
+    background-color: #266c6c;
+    color: snow;
+    font-size: small;
+    font-style: normal;
+    border-width: 0px;
+}
+
+.grade-gauges-panel {
+    margin: 16px;
+    flex: 1 1 auto;    
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: start;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.grade-gauges-panel::-webkit-scrollbar {
+    display: none;
+}
+
+
+#moy-gen {
+    padding-right: 32px;
+    --percent: 0;
+    --min: 0deg;
+    --size: 14vw;
+    --min-col: transparent;
+    --thickness: 2rem;                    
+}
+
+.moy {
+    padding-right: 8px;
+    --size: 12vw;
+    --thickness: 1.5rem;
+}
+
+@media (max-width: 900px) {
+    .grade-gauges-panel {
+        margin: 0px;
+    }
+
+    .moy {
+        --thickness: 0.9rem;
+        --size: 12vh;
+        font-size: small;
+    }
+
+    #moy-gen {
+        --thickness: 1.3rem;
+        --size: 14vh;
+    }
+
+}
+
+/* https://loading.io/css/ */
+
+.lds-ring,
+.lds-ring div {
+    box-sizing: border-box;
+}
+.lds-ring {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+}
+.lds-ring div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 64px;
+    height: 64px;
+    margin: 8px;
+    border: 8px solid currentColor;
+    border-radius: 50%;
+    animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: currentColor transparent transparent transparent;
+}
+.lds-ring div:nth-child(1) {
+    animation-delay: -0.45s;
+}
+.lds-ring div:nth-child(2) {
+    animation-delay: -0.3s;
+}
+.lds-ring div:nth-child(3) {
+    animation-delay: -0.15s;
+}
+@keyframes lds-ring {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

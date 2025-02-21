@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECE</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="styles/nav.css">
+    <link rel="stylesheet" href="styles/style.css">
+    <link rel="icon" href="./assets/images/logo.jpg" type="image">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script type="importmap">
+        {
+            "imports": {
+                "api_caller": "/scripts/api_caller.mjs",
+                "home": "/scripts/builder/home.mjs",
+                "login": "/scripts/builder/login.mjs"
+            }
+        }
+    </script>
+    <script src="scripts/utils.js" defer></script>
+    <script src="main.js" type="module" defer></script>
+    <script src="scripts/nav.js" defer></script>
+    <script src="scripts/fragments_generators.js" defer></script>
+</head>
+<body>
+    <style>html{visibility: hidden;opacity:0;}</style>
+
+    <!-- NAV -->
+    <nav>
+        <a href="/" data-route>
+            <img src="./assets/images/logo.jpg" alt="ECE" class="logo" width="90" height="90"/>
+        </a>
+        <a data-route href="/courses" >
+            <i id="courses" class="material-icons">
+                school
+            </i>
+
+        </a>
+        <a data-route href="/calendar">
+            <i id="calendar" class="material-icons">
+                calendar_month
+            </i>
+        </a>
+        <a data-route href="/grades">
+            <i id="grades" class="material-icons">
+                history_edu
+            </i>
+        </a>
+        <a href="/account" data-route>
+            <i id="account" class="material-icons">
+                account_circle
+            </i>
+        </a>
+        <a href="/settings" data-route>
+            <i id="settings" class="material-icons">
+                settings
+            </i>
+        </a>
+    </nav>
+    <div class="mobile-nav">
+        <header class="top-bar">
+            <a href="/" data-route>
+                <img src="./assets/images/logo.jpg" alt="ECE" class="logo" width="75" height="75"/>
+            </a>
+            <h1>Titre</h1>
+            <a class="open-side-bar" onclick="openNav()">
+                <i class="material-icons" id="menu">menu</i>
+            </a>
+        </header>
+        <div class="tap-out" id="tap-out" onclick="closeNav()">
+        </div>
+        <aside class="side-bar" id="side-bar">
+            <a class="close-side-bar" onclick="closeNav()">
+                <i class="material-icons">
+                    close
+                </i>
+            </a>
+            <a data-route href="/courses"  onclick="closeNav()">
+                <i id="courses" class="material-icons">
+                    school
+                </i>
+                Cours
+            </a>
+            <a data-route href="/calendar" onclick="closeNav()">
+                <i id="calendar" class="material-icons">
+                    calendar_month
+                </i>
+                Agenda
+            </a>
+            <a data-route href="/grades" onclick="closeNav()">
+                <i id="grades" class="material-icons">
+                    history_edu
+                </i>
+                Notes
+            </a>
+            <a href="/account" data-route onclick="closeNav()">
+                <i id="account" class="material-icons">
+                    account_circle
+                </i>
+                Compte
+            </a>
+            <a href="/settings" data-route onclick="closeNav()">
+                <i id="settings" class="material-icons">
+                    settings
+                </i>
+                Réglages
+            </a>
+        </aside>
+    </div>
+
+    <!-- CONTENT -->
+    <section id="content">
+    </section>
+    
+</body>
+</html>
