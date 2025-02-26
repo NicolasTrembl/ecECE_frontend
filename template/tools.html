@@ -1,0 +1,81 @@
+<style>#content {visibility: hidden;opacity:0;}</style>
+<link rel="stylesheet" href="styles/tools.css"></link>
+<div class="content-wrapper">
+    <!-- SEARCH -->
+    <header class="search-bar">
+        <h2>Rechercher un outil :</h2>
+        <form action="">
+            <fieldset>
+                <input type="text" placeholder="Rechercher un outil" id="search-bar">
+            </fieldset>
+            <button type="submit">
+                <i class="material-icons">search</i>
+            </button>
+        </form>
+    </header>
+
+    <section class="study">
+        <div class="sec-title">
+            <h2>Pour étudier :</h2>
+            <i class="material-icons">desk</i>
+        </div>
+        <div class="sec-content">
+            <article class="tool-card" data-route="/tools/pomodoro-timer" title="Pomodoro Timer">
+                <i class="material-icons">timelapse</i>
+                <h3>Pomodoro Timer</h3>
+            </article>
+            <article class="tool-card" data-route="/todo" title="Pomodoro Timer">
+                <i class="material-icons">checklist</i>
+                <h3>ToDo</h3>
+            </article>
+            <article class="tool-card" data-route="/eisen-matrix" title="Pomodoro Timer">
+                <i class="material-icons">window</i>
+                <h3>Matrice d'Eisenhower</h3>
+            </article>
+            <article class="tool-card" data-route="/flashcards" title="Flash cards">
+                <i class="material-icons">style</i>
+                <h3>Flash cards</h3>
+            </article>
+            <article class="tool-card" data-route="/mapper" title="Cartes mentales">
+                <i class="material-icons">account_tree</i>
+                <h3>Cartes Mentales</h3>
+            </article>
+            <article class="tool-card" data-route="/tools/report-filler">
+                <i class="material-icons">assignment</i>
+                <h3>Remplir un rapport</h3>
+            </article>
+        </div>
+    </section>
+    
+    <section class="links">
+        <div class="sec-title">
+            <h2>Lien utiles</h2>
+            <i class="material-icons">link</i>
+        </div>
+        <div class="sec-content">
+            <article class="tool-card" onclick="window.open('https:draw.io')" title="Draw.io">
+                <i class="material-icons">draw</i>
+                <h3>Draw.io</h3>
+            </article>
+        </div>
+    </section>
+
+    <section class="applications">
+        <div class="sec-title">
+            <h2>Applications</h2>
+            <i class="material-icons">apps</i>
+        </div>
+        <div class="sec-content">
+            <article class="tool-card"data-route="apps/graphs" title="Graphes">
+                <i class="material-icons">account_tree</i>
+                <h3>Graphes</h3>
+            </article>
+            <article class="tool-card"data-route="apps/bin-calc" title="Calculatrice Binaire">
+                <i class="material-icons">tag</i>
+                <h3>Calculatrice Binaire</h3>
+            </article>
+        </div>
+    </section>
+    
+
+</div>

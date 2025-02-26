@@ -15,6 +15,7 @@
     - [⚙️ Réglages](#-réglages)
 - [🔒 Vie privée et sécurité](#-vie-privée-et-sécurité)
 - [🛣️ Plan de route](#️-plan-de-route)
+- [👨‍💻 Organision du code](#-organisation-du-code)
 ---
 
 
@@ -110,3 +111,19 @@ Pour en savoir plus sur le back-end, cliquez [ici]() *(Pas encore disponible sur
 
 ---
 
+
+## 👨‍💻 Organisation du code
+
+Dans l'idée ce site est une SPA (Single Page Application), où les pages sont décomposées et où le client se charche de construire le suite.
+
+### Racine :
+
+La racine ne contient que 4 fichiers :
+ 1. ```index.html```
+ 2. ```index.php```
+ 3. ```load-template.php```
+ 4. ```main.js```
+
+
+```index.html``` est un fichier html presque vide qui agis comme 'coquille' pour notre site.
+```index.php``` est le points d'entré du serveur et 

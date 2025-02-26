@@ -1,0 +1,92 @@
+.content-wrapper {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.option {
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 0px;
+    font-size: 1.5rem;
+    flex: 1 1 auto;
+    z-index: 1;
+    overflow-x: hidden;
+}
+
+form {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+form > label {
+    margin-top: 1rem;
+    margin-bottom: .5rem;
+}
+
+#start-stop {
+    display: none;
+}
+
+form > input {
+    background-color: rgba(0, 0, 0, 0.2);
+    border: solid 1px snow;
+    border-radius: 16px;
+    padding: 0.5rem;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.option.shown {
+    border: solid 1px snow;
+    
+    animation: slideIn 1s forwards;
+}
+
+@keyframes slideIn {
+    from {
+        width: 0px;
+    }
+
+    to {
+        width: 30vw;
+    }
+}
+
+.timer {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    font-size: 3rem;
+}
+
+.timer > div > span, .timer > div {
+    font-size: 5rem;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: 1rem;
+    width: 25vw;
+}
+
+.buttons > button {
+    border: solid 1px snow;
+    border-radius: 16px;
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 2rem;
+    padding: 0.5rem;
+}

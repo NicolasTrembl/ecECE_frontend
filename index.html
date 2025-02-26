@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ECE</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="styles/nav.css">
-    <link rel="stylesheet" href="styles/style.css">
-    <link rel="icon" href="./assets/images/logo.jpg" type="image">
+    <link rel="stylesheet" href="/styles/nav.css">
+    <link rel="stylesheet" href="/styles/style.css">
+    <link rel="icon" href="/assets/images/logo.jpg" type="image">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     <script type="importmap">
         {
@@ -18,15 +18,27 @@
             }
         }
     </script>
-    <script src="scripts/utils.js" defer></script>
-    <script src="main.js" type="module" defer></script>
-    <script src="scripts/nav.js" defer></script>
-    <script src="scripts/fragments_generators.js" defer></script>
+    <script src="/scripts/utils.js" defer></script>
+    <script src="/main.js" type="module" defer></script>
+    <script src="/scripts/fragments_generators.js" defer></script>
 </head>
 <body>
+    <base href="/">
     <style>html{visibility: hidden;opacity:0;}</style>
 
     <!-- NAV -->
+    <script lang="javascript" defer>
+        function openNav() {
+            document.getElementById("side-bar").style.width = "250px";
+            document.getElementById("tap-out").style.display = "block";
+        }
+        
+        function closeNav() {
+            document.getElementById("side-bar").style.width = "0";
+            document.getElementById("tap-out").style.display = "none";
+            
+        }
+    </script>
     <nav>
         <a href="/" data-route>
             <img src="./assets/images/logo.jpg" alt="ECE" class="logo" width="90" height="90"/>
@@ -47,6 +59,11 @@
                 history_edu
             </i>
         </a>
+        <a href="/tools" data-route>
+            <i id="tools" class="material-icons">
+                home_repair_service
+            </i>
+        </a>
         <a href="/account" data-route>
             <i id="account" class="material-icons">
                 account_circle
@@ -61,7 +78,7 @@
     <div class="mobile-nav">
         <header class="top-bar">
             <a href="/" data-route>
-                <img src="./assets/images/logo.jpg" alt="ECE" class="logo" width="75" height="75"/>
+                <img src="/assets/images/logo.jpg" alt="ECE" class="logo" width="75" height="75"/>
             </a>
             <h1>Titre</h1>
             <a class="open-side-bar" onclick="openNav()">
@@ -93,6 +110,12 @@
                     history_edu
                 </i>
                 Notes
+            </a>
+            <a href="/tools" data-route onclick="closeNav()">
+                <i id="tools" class="material-icons">
+                    home_repair_service
+                </i>
+                Outils
             </a>
             <a href="/account" data-route onclick="closeNav()">
                 <i id="account" class="material-icons">

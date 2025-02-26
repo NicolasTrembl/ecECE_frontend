@@ -1,0 +1,35 @@
+<link rel="stylesheet" href="styles/pomodoro.css">
+<section class="content-wrapper">
+    <aside id="option" class="option">
+        <form>
+            <label for="pomodoro">Pomodoro Timer</label>
+            <input type="number" id="pomodoro" name="pomodoro" min="1" max="60" value="25">
+            <button type="submit">Start</button>
+            <fieldset id="advenced-options">
+                <legend>Options avancée</legend>
+                <label for="short-break">Short Break</label>
+                <input type="number" id="short-break" name="short-break" min="1" max="60" value="5">
+                <label for="long-break">Long Break</label>
+                <input type="number" id="long-break" name="long-break" min="1" max="60" value="15">
+                <label for="long-break-interval">Long Break Interval</label>
+                <input type="number" id="long-break-interval" name="long-break-interval" min="1" max="60" value="4">
+            </fieldset>
+        </form>
+    </aside>
+    <article class="timer">
+        <div id="timer-display">
+            <span id="minutes">25</span>:<span id="seconds">00</span>
+        </div>
+        <div class="buttons">
+            <button id="start-stop">
+                Start
+            </button>
+            <button id="show-options">
+                Options
+            </button>
+            <button id="reset">
+                Reset
+            </button>
+        </div>
+    </article>
+</section>

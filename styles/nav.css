@@ -64,7 +64,7 @@ nav > a > i {
         align-items: center;
         height: 10vh;
         color: snow;
-        padding: 0 6vw;
+        padding: 0 6vw 0 2vw;
     }
 
     .side-bar {
