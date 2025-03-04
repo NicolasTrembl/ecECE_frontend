@@ -3,12 +3,22 @@
         .main-nci-panel {
             display: flex;
             justify-content: start;
-            align-items: stretch;
-            padding: 10px;
+            align-items: start;
+            /* padding: 10px; */
             overflow-x: auto;
             scrollbar-width: none;
             -ms-overflow-style: none;
+            width: 80vw;
+
         }
+
+        @media (min-width: 900px) {
+            .main-nci-panel {
+                width: 25vw;
+                align-items: center;
+            }
+        }
+
         
         .nci-icon-panel {
             padding-top: 8px;

@@ -1,3 +1,147 @@
-<button id="generate-docx">Télécharger DOCX</button>
+<style>
+    .content-wrapper {
+        flex: 1 1 auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .file-meta, .file-content {
+        height: 35vh;
+        width: 100%;
+        flex: 1 1 auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: center;
+        margin-bottom: 20px;
+        overflow-y: auto;
+    }
 
-    
+    .content-wrapper input, .i-wrapper {
+        background-color: rgba(0, 0, 0, 0.2);
+        border: 1px solid #ccc;
+        margin: 5px;
+        padding: 5px;
+        width: 200px;
+    }
+
+    .i-wrapper, .fill {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        width: 415px !important;
+    }
+
+    .i-wrapper {
+        cursor: pointer;
+    }
+
+    #authors {
+        display: flex;
+        flex: 1 1 auto;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .file-meta > h2, .file-content > h2 {
+        padding-bottom: 20px;
+    }
+
+    .file-meta > h3 {
+        padding: 8px;
+    }
+
+    .download {
+        height: 10vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .download > h2 {
+        padding-bottom: 20px;
+    }
+
+    .dl-options {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+
+
+    input[type=button] {
+        cursor: pointer;
+    }
+
+</style>
+<div class="content-wrapper">
+    <section class="file-meta">
+        <h2>
+            Informations sur le TP
+        </h2>
+        <h3>
+            Informations générales
+        </h3>
+        <div class="duo-input">
+            <input type="text" class="name" placeholder="Nom du TP"/>
+            <input type="number" class="number" placeholder="Numéro de TP"/>
+        </div>
+        <div class="duo-input">
+            <input type="date" class="date"/>
+            <input type="text" class="teacher" placeholder="Nom de l'enseignant"/>
+        </div>
+        <div class="duo-input">
+            <input type="number" class="group" placeholder="Groupe"/>
+            <input type="number" class="year" placeholder="Année (INGX)"/>
+        </div>
+        <h3>
+            Auteurs
+        </h3>
+        <div id="authors">
+            <div class="duo-input">
+                <input type="text" class="author" placeholder="Prénom de l'auteur n°1"/>
+                <input type="text" class="author" placeholder="Nom de l'auteur n°1"/>
+            </div>
+            <div id="addAuthBtn" class="i-wrapper">
+                <i class="material-icons">add</i>
+            </div>
+        </div>
+    </section>
+    <section class="file-content" id="fileContent">
+        <h2>
+            Sections du TP
+        </h2>
+        <article id="artSec1">
+            <input id="sec1" type="text" class="fill" placeholder="Nom de la partie"/>
+            <div class="duo-input">
+                <input id="sec1AddPartBtn" type="button" class="section" value="Ajouter une sous-partie"/>
+                <input id="sec1AddContBtn" type="button" class="section" value="Ajouter du contenu"/>
+            </div>
+            <div id="subSections1">
+
+            </div>
+            <div id="orphanContent1">
+
+            </div>
+        </article>
+        <div id="addSectBtn" class="i-wrapper">
+            <i class="material-icons" onclick="">add</i>
+        </div>
+    </section>
+    <section class="download">
+        <h2>
+            Télécharger le rapport
+        </h2>
+        <div class="dl-options">
+            <input type="button" value="Format WORD"/>
+            <input type="button" value="Format LaTeX"/>
+            <input type="button" value="Format PDF"/>
+        </div>
+        
+    </section>
+</div>

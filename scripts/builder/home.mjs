@@ -298,14 +298,14 @@ function getHtmlTemplate(course) {
 
 
     var out = `
-    <template-nextClassesInfo>
+    <frag-upcoming-class>
         <i    slot="icon" class="material-icons">${getIcon(matiere)}</i>
         <h3   slot="title">${matiere}</h3>
         <span slot="teacher">${enseignant}</span>
-        <a href="./routes/rooms.html?room=${salle}" slot="room">${salle}</a>
+        <a href="./apps/room-finder?room=${salle}" slot="room">${salle}</a>
         <span slot="date">${dateInfo}</span>
         <span slot="number">${type}</span>
-    </template-nextClassesInfo>`;
+    </frag-upcoming-class>`;
     return active ? out : "<s>" + out + "</s>";
 }
 
@@ -371,38 +371,60 @@ function getUpcomingClasses(courses){
 
 }
 
+function displayCourses(courses) {
+    
+} 
 
 
 function homeBuild() {
-    const grades = JSON.parse(localStorage.getItem("grades"));
-    // var grades = null;
-    var lastSem = getLastSemester(grades["semesters"]);
-    addSem(grades["semesters"] ?? [], lastSem ?? {});
-    fillGauges(lastSem ?? {});
+    try {
+        const grades = JSON.parse(localStorage.getItem("grades"));
+        // var grades = null;
+        var lastSem = getLastSemester(grades["semesters"]);
+        addSem(grades["semesters"] ?? [], lastSem ?? {});
+        fillGauges(lastSem ?? {});
+        
     
-
-    const calendar = localStorage.getItem("calendar");
-    const events = getCalendarEvents(calendar ?? null);
-    getUpcomingClasses(events);
-
-    const token = getCookie("token");
-
-    getCalendar((data) => {
-        localStorage.setItem("calendar", data);
-        const events = getCalendarEvents(data);
+        const calendar = localStorage.getItem("calendar");
+        const events = getCalendarEvents(calendar ?? null);
         getUpcomingClasses(events);
-    });
+    } finally {
 
-    if (token) {
-        getGrades(token, (data) => {
-            localStorage.setItem("grades", JSON.stringify(data));
-            var lastSem = getLastSemester(data["semesters"]);
-            addSem(data["semesters"], lastSem);
-            fillGauges(lastSem);
+        const token = getCookie("token");
+    
+        getCalendar((data) => {
+            if (!data || data.error) {
+                return;
+            }
+            localStorage.setItem("calendar", data);
+            const events = getCalendarEvents(data);
+            getUpcomingClasses(events);
         });
+    
+        if (token) {
+            getGrades(token, (data) => {
+                if (!data || data.error) {
+                    return;
+                }
+                localStorage.setItem("grades", JSON.stringify(data));
+                var lastSem = getLastSemester(data["semesters"]);
+                addSem(data["semesters"], lastSem);
+                fillGauges(lastSem);
+            });
+     
+            getCourses(token, (data) => {
+                if (!data || data.error) {
+                    return;
+                }
+                console.log(data);
+                localStorage.setItem("courses", JSON.stringify(data));
+                
+            });
+    
+        }
+    }
         
 
-    }
 
     
 }

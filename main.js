@@ -6,6 +6,7 @@
 
 import { homeBuild } from "home";
 import { loginBuild } from "login";
+import { checkToken } from "api_caller";
 
 const content = document.getElementById('content');
 const loadTemplateUrl = './load-template.php';
@@ -32,6 +33,7 @@ const routes = {
     '/tools/pomodoro-timer': 'tools/pomodoro-timer',
     '/timer': 'tools/pomodoro-timer',
     '/tools/report-filler': 'tools/report-filler',
+    '/apps/room-finder': 'tools/room-finder',
 
 }
 
@@ -54,8 +56,8 @@ const changingNav = [
     "settings"
 ]
 
-function navigate(path) {
-
+function navigate(rawPath) {
+    const path = rawPath.split("?")[0];
     if (!routes[path]) {
         console.error("Route inconnue :", path);
         navigate("/not-found");
@@ -88,7 +90,7 @@ function navigate(path) {
 
 
 
-    fetch(`/${loadTemplateUrl}?template=${routes[path]}`)
+    fetch(`/${loadTemplateUrl}?template=${routes[path]}${rawPath.includes("?") ? "&" + rawPath.split("?")[1] : ""}`)
         .then(response => response.text())
         .then(data => {
             content.innerHTML = data;
@@ -142,6 +144,9 @@ function handleBuilders() {
         case "/tools/report-filler":
             import("/scripts/tools/report-filler.js");
             break;
+        case "/apps/room-finder":
+            import("/scripts/tools/room-finder.js");
+            break;
         default:
             break;
     }
@@ -153,15 +158,32 @@ window.addEventListener("popstate", () => {
     navigate(path);
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+    const path = window.location.pathname;
+    
+    if (routes[path]) {
+        navigate(path); // 🔥 Charge la bonne page
+    } else {
+        navigate('/not-found'); // 🔥 Gère les erreurs si nécessaire
+    }
+});
+
 
 
 // CHECK IF USER IS CONNECTED
 
 const token = getCookie("token");
 if (token) {
-    console.log("User connected");
     handleClicks();
     navigate(window.location.pathname);
 } else {
     navigate("/login");
 }
+
+checkToken(token).then(function (works) {
+    if (!works) {
+        // delete token
+        document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        navigate("/login");
+    } 
+});

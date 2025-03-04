@@ -14,8 +14,9 @@ import {
     TableCell,
     WidthType,
     BorderStyle,
-    HeadingLevel
+    HeadingLevel,
 } from "https://cdn.jsdelivr.net/npm/docx@9.1.1/+esm";
+
 
 
 
@@ -166,40 +167,69 @@ function generateAuthorTable() {
     });
 }
 
+
 function generateCodeBloc(reponse) {
     const codeLines = reponse.value.split("\n"); // Divise le code en plusieurs lignes
-
+    console.log(codeLines);
     return new Table({
         alignment: AlignmentType.CENTER,
         width: {
-            size: 50,
+            size: 65,
             type: WidthType.PERCENTAGE, // Définit la largeur
         },
-        rows: [
+        rows: codeLines.flatMap((line) => [
             new TableRow({
                 children: [
                     new TableCell({
+                        width: {
+                            size: 5,
+                            type: WidthType.PERCENTAGE,
+                        },
                         shading: {
                             type: "solid",
                             color: "000000", // Fond noir
                         },
                         children: [
                             new Paragraph({
-                                children: codeLines.flatMap((line) => [
+                                keepLines: true,
+                                children: [
+                                    new TextRun({
+                                        text: "",
+                                        font: "Courier New",
+                                        size: 10 * 2,
+                                        color: "FFFFFF", // Texte blanc
+                                    }),
+                                ],
+                            }),
+                        ]
+                    }),
+                    new TableCell({
+                        width: {
+                            size: 95,
+                            type: WidthType.PERCENTAGE,
+                        },
+                        shading: {
+                            type: "solid",
+                            color: "000000", // Fond noir
+                        },
+                        children: [
+                            new Paragraph({
+                                keepLines: true,
+                                children: [
                                     new TextRun({
                                         text: line,
                                         font: "Courier New",
                                         size: 10 * 2,
                                         color: "FFFFFF", // Texte blanc
                                     }),
-                                    new TextRun({ text: "\n" }),
-                                ]),
+                                ],
                             }),
                         ],
                     }),
                 ],
             }),
-        ],
+        ])
+        ,
     });
 }
 
@@ -575,4 +605,101 @@ async function generateDoc() {
     });
 }
 
-document.getElementById("generate-docx").addEventListener("click", generateDoc);
+function addAuthor() {
+    const authors = document.getElementById("authors");
+    const addBtn = document.getElementById("addAuthBtn");
+    addBtn.remove();
+    const numbAuth = authors.children.length + 1;
+    authors.innerHTML += `
+        <div class="duo-input">
+            <input type="text" class="author" placeholder="Prénom de l'auteur n°${numbAuth}"/>
+            <input type="text" class="author" placeholder="Nom de l'auteur n°${numbAuth}"/>
+        </div>
+        <div id="addAuthBtn" class="i-wrapper">
+            <i class="material-icons" onclick="addAuthor()">add</i>
+        </div>
+    `;
+    document.getElementById("addAuthBtn").addEventListener("click", addAuthor);
+
+}
+
+function addSection() {
+    const sections = document.getElementById("fileContent");
+    const addBtn = document.getElementById("addSectBtn");
+    addBtn.remove();
+    const number = sections.children.length;
+    sections.innerHTML += `
+        <article id="artSec${number}">
+            <input id="sec${number}" type="text" class="fill" placeholder="Nom de la partie"/>
+            <div class="duo-input">
+                <input id="sec${number}AddPartBtn" type="button" class="section" value="Ajouter une sous-partie"/>
+                <input id="sec${number}AddContBtn" type="button" class="section" value="Ajouter du contenu"/>
+            </div>
+            <div id="subSections${number}">
+            </div>
+        </article>
+        <div id="addSectBtn" class="i-wrapper">
+            <i class="material-icons" onclick="">add</i>
+        </div>
+        <div id="orphanContent${number}">
+        </div>
+    `;
+    document.getElementById("addSectBtn").addEventListener("click", addSection);
+    document.getElementById(`sec${number}AddPartBtn`).addEventListener("click", addSubSection);
+    document.getElementById(`sec${number}AddContBtn`).addEventListener("click", addContent);
+}
+
+function addSubSection() {
+    const cliked = this.id;
+    const number = cliked.split("sec")[1].split("Add")[0];
+    const subNumber = document.getElementById(`subSections${number}`).children.length;
+    const subSections = document.getElementById(`subSections${number}`);
+    subSections.innerHTML += `
+        <div id="subSec${number}.${subNumber}">
+            <input id="sec${number}.${subNumber}" type="text" class="fill" placeholder="Nom de la sous-partie"/>
+            <input id="sec${number}.${subNumber}AddContBtn" type="button" class="fill" value="Ajouter du contenu"/>
+        </div>
+    `;
+}
+
+
+function addContent() {
+    const cliked = this.id;
+    const fulln = cliked.split("sec")[1].split("Add")[0];
+    if (fulln.includes(".")) {
+        const number = fulln.split(".")[0];
+        const subNumber = fulln.split(".")[1];
+        const content = document.getElementById(`subSec${number}.${subNumber}`);
+        content.innerHTML += `
+            <div id="contSec${number}.${subNumber}">
+                <input id="sec${number}.${subNumber}.cont" type="text" class="fill" placeholder="Nom de la question"/>
+                <input id="sec${number}.${subNumber}.contAddBtn" type="button" class="fill" value="Ajouter une réponse"/>
+            </div>
+        `;
+        document.getElementById(`sec${number}.${subNumber}.contAddBtn`).addEventListener("click", addResponse);
+    } else {
+        const content = document.getElementById(`orphanContent${fulln}`);
+        const number = content.children.length;
+        content.innerHTML += `
+            <div id="orphan${fulln}.${number}">
+                <input id="orphan${fulln}.${number}Cont" type="text" class="fill" placeholder="Nom de la question"/>
+                <div class="duo-input">
+                    <input id="orphan${fulln}.${number}ContType" type="button" class="section" value="Type"/>
+                    <input id="orphan${fulln}.${number}ContValue" type="text" class="section" placeholder="Texte"/>
+                </div>
+            </div>
+        `;
+    }
+}
+
+
+
+
+function init() {
+    document.getElementById("addAuthBtn").addEventListener("click", addAuthor);
+    document.getElementById("addSectBtn").addEventListener("click", addSection);
+    document.getElementById("sec1AddPartBtn").addEventListener("click", addSubSection);
+    document.getElementById("sec1AddContBtn").addEventListener("click", addContent);
+}
+
+init()

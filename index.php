@@ -10,7 +10,7 @@ if (strpos($request, "/load-template.php") === 0) {
 }
 
 // ✅ Ne pas intercepter les fichiers statiques (JS, CSS, images, etc.)
-if (preg_match("#\.(css|js|png|jpg|jpeg|gif|svg|webp|ico)$#", $request)) {
+if (preg_match("#\.(css|js|png|jpg|jpeg|gif|svg|webp|ico|pdf)$#", $request)) {
     return false;
 }
 

@@ -61,11 +61,11 @@ async function getGrades(token, callback = (grades) => {}) {
 
 async function getCalendar(callback = (calendar) => {}) {
     var localCal = localStorage.getItem("calendar");
-    if (localCal && localCal["savedAt"] && localCal["savedAt"] > Date.now() - 1000 * 60 * 30 * 1) {
-        console.log("Using localCal storage");
-        getCalendarEvents(localCal["data"]);
-        return true;
-    }
+    // if (localCal && localCal["savedAt"] && localCal["savedAt"] > Date.now() - 1000 * 60 * 30 * 1) {
+    //     console.log("Using localCal storage");
+    //     getCalendarEvents(localCal["data"]);
+    //     return true;
+    // }
 
     var localOptions = JSON.parse(localStorage.getItem("settings"));
     if (!localOptions || !localOptions["icalUrl"]) {
@@ -116,4 +116,23 @@ async function getCourses(token, callback = (courses) => {}) {
     return data;
 }
 
-export { getToken, getGrades, getCalendar, getCourses };
+async function checkToken(token) {
+    try {
+
+        const options = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        }
+        const response = await fetch(`${endpoint}/check`, options);
+        const data = await response.json();
+        console.log(data);
+        return data.valid;
+    } catch(e) {
+        return false;
+    }
+}
+
+export { getToken, getGrades, getCalendar, getCourses, checkToken };
