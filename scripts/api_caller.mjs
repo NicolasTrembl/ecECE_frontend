@@ -1,4 +1,4 @@
-const endpoint = "http://localhost:3000"
+const endpoint = "https://ecece-backend.onrender.com"
 
 async function getToken(data, callback = (token) => {}) {
     const mail = data.email;
