@@ -23,6 +23,14 @@
     
 }
 
+@media screen and (max-width: 900px) {
+    .login > form > fieldset {
+        width: 80vw;
+        height: 50vh;
+    }
+    
+}
+
 .login > form > fieldset > legend {
     font-size: larger;
     font-weight: bolder;
