@@ -146,6 +146,7 @@ span[slot="teacher"] {
     overflow-x: auto;
     scrollbar-width: none;
     -ms-overflow-style: none;
+    width: 100%;
 }
 
 

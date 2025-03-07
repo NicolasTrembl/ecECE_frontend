@@ -377,7 +377,7 @@ function getUpcomingClasses(courses){
 function getRecentClasseHtmlTemplate(course) {
     var out = `
     <frag-course-info>
-        <img slot="icon" src="${course.imageUrl}" width="45px">
+        <img slot="icon" src="${course.imageUrl}" onerror="this.src='/assets/images/logo.jpg';" width="45px">
         <h3   slot="title">${course.title}</h3>
         <span slot="imod-OpenAt">Ouvert: Inconnu</span>
         <a slot="imod-Link" href="${course.link}">Lien</a>
