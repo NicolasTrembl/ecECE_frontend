@@ -15,14 +15,22 @@ function submitLogin() {
     getToken(data, (token) => {
         if (token) {
             console.log("Connecter");
-            history.back();
+            if ((history.state && !history.state.path_from) || history.state.path_from === "/login") {
+                // alert("Go to home");
+                history.pushState({path_from: "/"}, "", "/");
+                history.replaceState({path_from: "/"}, "", "/");
+                history.go();
+
+            } else {
+                // alert("Go back");
+                history.back();
+            }    
         }
     });
 }
 
 
 function loginBuild(path_from) {
-    console.log("BUILDING LOGIN");
     path_from = path_from;
     
     const email = localStorage.getItem("email");
@@ -39,7 +47,16 @@ function loginBuild(path_from) {
         getToken(data, (token) => {
             if (token) {
                 console.log("Connecter");
-                history.back();            
+                if ((history.state && !history.state.path_from) || history.state.path_from === "/login") {
+                    history.pushState({path_from: "/"}, "", "/");
+                    history.replaceState({path_from: "/"}, "", "/");
+                    history.go();
+                } else {
+                    // alert("Go back");
+                    history.back();
+                }    
+            } else {
+                alert("Error");
             }
         });
     }

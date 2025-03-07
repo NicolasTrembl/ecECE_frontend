@@ -1,4 +1,5 @@
 import { getToken, getGrades, getCalendar, getCourses } from "api_caller";
+import { getCookie } from "utils";
 import ICAL from "https://unpkg.com/ical.js/dist/ical.min.js";
 
 /* GRADES */
@@ -227,7 +228,7 @@ function pad(num, size) {
     return num;
 }
 
-function getHtmlTemplate(course) {
+function getNextCoursesHtmlTemplate(course) {
     var matiere = null;
     var enseignant = null;
     var salle = null;
@@ -295,7 +296,9 @@ function getHtmlTemplate(course) {
         dateInfo = `Fini le ${endAt.getDate()}/${endAt.getMonth() + 1} à ${endAt.getHours()}h${pad(endAt.getMinutes(), 2)}`;
     }
 
-
+    if (salle.includes(" ")) {
+        salle = salle.split(" ")[0];
+    } 
 
     var out = `
     <frag-upcoming-class>
@@ -339,7 +342,7 @@ function getUpcomingClasses(courses){
     panel.innerHTML = "";
     for (let i = 0; i < classesToday.length; i++) {
         const element = classesToday[i];
-        panel.innerHTML += getHtmlTemplate(element);
+        panel.innerHTML += getNextCoursesHtmlTemplate(element);
     }
 
     if (classesToday.length >= 6) return;
@@ -365,14 +368,30 @@ function getUpcomingClasses(courses){
     panelNext.innerHTML = "";
     for (let i = 0; i < classesNext.length; i++) {
         const element = classesNext[i];
-        panelNext.innerHTML += getHtmlTemplate(element);
+        panelNext.innerHTML += getNextCoursesHtmlTemplate(element);
     }
 
 
 }
 
-function displayCourses(courses) {
-    
+function getRecentClasseHtmlTemplate(course) {
+    var out = `
+    <frag-course-info>
+        <img slot="icon" src="${course.imageUrl}" width="45px">
+        <h3   slot="title">${course.title}</h3>
+        <span slot="imod-OpenAt">Ouvert: Inconnu</span>
+        <a slot="imod-Link" href="${course.link}">Lien</a>
+    </frag-course-info>`;
+    return out;
+}
+
+function displayRecentClasses(courses) {
+    const panel = document.getElementById("recent-courses-panel");
+    panel.innerHTML = "";
+    for (let i = 0; i < courses.length; i++) {
+        const element = courses[i];
+        panel.innerHTML += getRecentClasseHtmlTemplate(element);
+    }
 } 
 
 
@@ -388,6 +407,9 @@ function homeBuild() {
         const calendar = localStorage.getItem("calendar");
         const events = getCalendarEvents(calendar ?? null);
         getUpcomingClasses(events);
+
+        const courses = JSON.parse(localStorage.getItem("courses"));
+        displayRecentClasses(courses.slice(0, 3));
     } finally {
 
         const token = getCookie("token");
@@ -418,7 +440,7 @@ function homeBuild() {
                 }
                 console.log(data);
                 localStorage.setItem("courses", JSON.stringify(data));
-                
+                displayRecentClasses(data.slice(0, 3));
             });
     
         }

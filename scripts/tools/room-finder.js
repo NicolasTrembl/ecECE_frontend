@@ -96,8 +96,7 @@ function getRoom(room) {
                 }
                 page.getTextContent().then(function (textContent) {
                     textContent.items.forEach(function (textObj) {
-                        if (textObj.str === room) {
-                            console.log(textObj);
+                        if (textObj.str.trim() === room.trim()) {
                             highlightText(ctx, textObj, viewport);
                         }
                     });

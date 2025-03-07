@@ -7,6 +7,7 @@
 import { homeBuild } from "home";
 import { loginBuild } from "login";
 import { checkToken } from "api_caller";
+import { getCookie } from "utils";
 
 const content = document.getElementById('content');
 const loadTemplateUrl = './load-template.php';
@@ -34,6 +35,8 @@ const routes = {
     '/timer': 'tools/pomodoro-timer',
     '/tools/report-filler': 'tools/report-filler',
     '/apps/room-finder': 'tools/room-finder',
+    '/tools/todo': 'tools/todo',
+    '/todo': 'tools/todo',
 
 }
 
@@ -147,6 +150,9 @@ function handleBuilders() {
         case "/apps/room-finder":
             import("/scripts/tools/room-finder.js");
             break;
+        case "/tools/todo":
+            import("/scripts/tools/todo.js");
+            break;
         default:
             break;
     }
@@ -162,9 +168,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const path = window.location.pathname;
     
     if (routes[path]) {
-        navigate(path); // 🔥 Charge la bonne page
+        // alert("Navigate to " + path);
+        navigate(path);
     } else {
-        navigate('/not-found'); // 🔥 Gère les erreurs si nécessaire
+        navigate('/not-found'); 
     }
 });
 
@@ -173,17 +180,15 @@ document.addEventListener("DOMContentLoaded", () => {
 // CHECK IF USER IS CONNECTED
 
 const token = getCookie("token");
-if (token) {
+if (token !== "") {
     handleClicks();
     navigate(window.location.pathname);
 } else {
-    navigate("/login");
-}
-
-checkToken(token).then(function (works) {
-    if (!works) {
-        // delete token
-        document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    if (window.location.pathname.includes("/tools") || window.location.pathname.includes("/app")) {
+        console.log("No token needed");
+        navigate(window.location.pathname);
+    } else {
+        console.log("No token found, redirecting to login", token);
         navigate("/login");
-    } 
-});
+    }
+}

@@ -92,6 +92,13 @@ span[slot="teacher"] {
     max-width: 15vw;
 }
 
+@media (max-width: 900px) {
+    span[slot="teacher"] {
+        max-width: 15vh;
+    }
+    
+}
+
 /* COURSES */
 
 .SE {
@@ -133,7 +140,7 @@ span[slot="teacher"] {
     margin: 16px;
     display: flex;
     flex: 1 1 auto;    
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
     overflow-x: auto;
@@ -141,14 +148,18 @@ span[slot="teacher"] {
     -ms-overflow-style: none;
 }
 
+
+
 .recent-courses-panel::-webkit-scrollbar, .pinned-courses-panel::-webkit-scrollbar {
     display: none;
 }
 
 @media (min-width: 900px) {
     .recent-courses-panel, .pinned-courses-panel {
-        flex-direction: row;
+        flex-direction: column;
         margin-left: 4px;
+        align-items: stretch;
+        max-width: 25vw;
     }
 }
 
@@ -169,8 +180,14 @@ span[slot="teacher"] {
     font-size: inherit;
     font-style: inherit;
     font-weight: inherit;
-    max-width: 15vw;
+    max-width: 20vw;
     text-overflow: ellipsis;
+}
+
+@media (max-width: 900px) {
+    .sem-select {
+        max-width: 20vh;
+    }
 }
 
 .sem-select > option {
@@ -230,6 +247,8 @@ span[slot="teacher"] {
     }
 
 }
+
+
 
 /* https://loading.io/css/ */
 
