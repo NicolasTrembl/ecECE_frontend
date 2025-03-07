@@ -140,9 +140,9 @@ span[slot="teacher"] {
     margin: 16px;
     display: flex;
     flex: 1 1 auto;    
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: stretch;
     overflow-x: auto;
     scrollbar-width: none;
     -ms-overflow-style: none;
@@ -156,9 +156,7 @@ span[slot="teacher"] {
 
 @media (min-width: 900px) {
     .recent-courses-panel, .pinned-courses-panel {
-        flex-direction: column;
         margin-left: 4px;
-        align-items: stretch;
         max-width: 25vw;
     }
 }

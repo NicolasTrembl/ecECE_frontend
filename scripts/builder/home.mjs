@@ -394,6 +394,15 @@ function displayRecentClasses(courses) {
     }
 } 
 
+function displayPinnedClasses(courses) {
+    const panel = document.getElementById("pinned-courses-panel");
+    panel.innerHTML = "";
+    for (let i = 0; i < courses.length; i++) {
+        const element = courses[i];
+        panel.innerHTML += getRecentClasseHtmlTemplate(element);
+    }
+} 
+
 
 function homeBuild() {
     try {
@@ -410,6 +419,7 @@ function homeBuild() {
 
         const courses = JSON.parse(localStorage.getItem("courses"));
         displayRecentClasses(courses.slice(0, 3));
+        displayPinnedClasses(courses.slice(3, 6));
     } finally {
 
         const token = getCookie("token");
