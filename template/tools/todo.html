@@ -10,6 +10,10 @@
     section {
         width: 100%;
     }
+
+    .top-options {
+        transition: all 0.3s ease-in-out;
+    }
     
     .search-option {
         display: flex;
@@ -35,19 +39,142 @@
         color: snow;
         font-size: 1rem;
     }
+
+    .search-bar > input:focus {
+        outline: none;
+    }
+
+    .top-options > div {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .todo-btn {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 0.5rem;
+        border-radius: 1rem;
+        border-color: snow;
+        background-color: rgba(0, 0, 0, 0.1);
+        color: snow;
+        font-size: 1rem;
+        margin: 0.5rem;
+    }
+    .todo-btn > i {
+        margin: 0.5rem;
+        margin-left: .7rem;
+    }
+    
+    .todo-btn {
+        border: 1px solid transparent;
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+        overflow: hidden;
+        white-space: nowrap;
+
+    }
+
+    .todo-btn > p {
+        display: inline-block;
+        width: 0;
+        padding: 0;
+        overflow: hidden;
+        white-space: nowrap;
+        transition: width 0.3s steps(10, end);
+    }
+
+    .todo-btn:hover > p {
+        width: 100%;
+        padding: 0 4px 0 0;
+    }
+
+    .btn-selected {
+        border: 1px solid snow;
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-selected > p {
+        width: 100%;
+        padding: 0 4px 0 0;
+    }
+
+    .hidden {
+        transform: translateX(100%);
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .hide-complete {
+        display: none;
+    }
+
+    /* Bouton Toggle */
+    #toggle-menu {
+        position: fixed;
+        bottom: 10px;
+        right: 10px;
+        background-color: rebeccapurple;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1rem;
+        color: white;
+    }
+
+    #toggle-menu:hover {
+        background-color: darkorchid;
+    }
+
 </style>
+
 <div class="content-wrapper">
-    <section class="search-option">
-        <div class="search-bar">
-            <input type="text" id="search" placeholder="Rechercher une tache"/>
-        </div>
-        <div class="cat">
 
+    <button id="toggle-menu">Options</button>
+    <section class="top-options hidden hide-complete">
+        <div class="search-option">
+            <div class="search-bar">
+                <input type="text" id="search" placeholder="Rechercher une tache"/>
+            </div>
+            <div class="cat">
+    
+            </div>
         </div>
-    </section>
-    <section class="display-option">
-
+        <div class="display-option">
+            <div class="todo-btn">
+                <i class="material-icons">schedule</i>
+                <p>Date</p>
+            </div>
+            <div class="todo-btn">
+                <i class="material-icons">done</i>
+                <p>Fait</p>
+            </div>
+            <div class="todo-btn">
+                <i class="material-icons">star</i>
+                <p>Important</p>
+            </div>
+            <div class="todo-btn">
+                <i class="material-icons">category</i>
+                <p>Categorie</p>
+            </div>
+        </div>
+        <div class="view-option">
+            <div class="todo-btn btn-selected radio">
+                <i class="material-icons">list_alt</i>
+                <p>Liste</p>
+            </div>
+            <div class="todo-btn radio">
+                <i class="material-icons">view_kanban</i>
+                <p>Kanban</p>
+            </div>
+        </div>
     </section>
     <section class="todo-list">
+        lhqbefkugqvzifuygq
     </section>
 </div>
