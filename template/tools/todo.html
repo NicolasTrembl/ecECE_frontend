@@ -13,6 +13,7 @@
 
     .top-options {
         transition: all 0.3s ease-in-out;
+        margin-bottom: 16px;
     }
     
     .search-option {
@@ -88,20 +89,27 @@
         transition: width 0.3s steps(10, end);
     }
 
-    .todo-btn:hover > p {
-        width: 100%;
-        padding: 0 4px 0 0;
+    @media screen and (min-width: 768px) {
+        .todo-btn:hover > p {
+            width: 100%;
+            padding: 0 4px 0 0;
+        }
+        .btn-selected > p {
+            width: 100%;
+            padding: 0 4px 0 0;
+        }
+
+        
     }
+
 
     .btn-selected {
         border: 1px solid snow;
         background-color: rgba(0, 0, 0, 0.1);
     }
 
-    .btn-selected > p {
-        width: 100%;
-        padding: 0 4px 0 0;
-    }
+
+ 
 
     .hidden {
         transform: translateX(100%);
@@ -130,6 +138,32 @@
     #toggle-menu:hover {
         background-color: darkorchid;
     }
+
+    .add-btn {
+        cursor: pointer;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 0.5rem;
+        border-radius: 1rem;
+        border-color: snow;
+        background-color: rgba(0, 0, 0, 0.1);
+        color: snow;
+        font-size: 1rem;
+        margin: 0.5rem;
+    }
+    .add-btn > i {
+        margin: 0.5rem;
+        margin-left: .7rem;
+    }
+
+    .todo-item-separator {
+        width: 100%;
+        height: 1px;
+        border-bottom: 1px dashed snow;
+    }
+
 
 </style>
 
@@ -174,7 +208,38 @@
             </div>
         </div>
     </section>
-    <section class="todo-list">
+    <section class="todo-list list" id="todo-list">
+        <frag-todo-item>
+            <i slot="todo-item-check" class="material-icons">check_box_outline_blank</i>
+            <i slot="icon-todo-item" class="material-icons">category</i>
+            <p slot="todo-item">Acheter du pain</p>
+            <p slot="todo-date">12/12/2020</p>
+            <i slot="icon-edit-todo-item" class="material-icons">edit</i>
+            <i slot="icon-delete-todo-item" class="material-icons">delete</i>
+        </frag-todo-item>
+        <div class="todo-item-separator"></div>
+        <frag-todo-item>
+            <i slot="todo-item-check" class="material-icons">check_box_outline_blank</i>
+            <i slot="icon-todo-item" class="material-icons">category</i>
+            <p slot="todo-item">Acheter du pain</p>
+            <p slot="todo-date">12/12/2020</p>
+            <i slot="icon-edit-todo-item" class="material-icons">edit</i>
+            <i slot="icon-delete-todo-item" class="material-icons">delete</i>
+        </frag-todo-item>
+        <div class="todo-item-separator"></div>
+        <frag-todo-item>
+            <i slot="todo-item-check" class="material-icons">check_box_outline_blank</i>
+            <i slot="icon-todo-item" class="material-icons">category</i>
+            <p slot="todo-item">Acheter du pain</p>
+            <p slot="todo-date">12/12/2020</p>
+            <i slot="icon-edit-todo-item" class="material-icons">edit</i>
+            <i slot="icon-delete-todo-item" class="material-icons">delete</i>
+        </frag-todo-item>
+        <div class="add-btn">
+            <i class="material-icons">add</i>
+        </div>
+    </section>
+    <section class="todo-list kanban" style="display: none;">
         lhqbefkugqvzifuygq
     </section>
 </div>

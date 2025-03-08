@@ -1,0 +1,72 @@
+<template id="todo-item">
+    <style>
+        .todo-item {
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            padding: 10px;
+            /* border-bottom: 1px solid rgba(0, 0, 0, 0.1); */
+            
+        }
+
+        .todo-item > p {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .todo-item > button {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            color: rgba(0, 0, 0, 0.5);
+        }
+
+        .todo-item > button:hover {
+            color: rgba(0, 0, 0, 0.8);
+        }
+
+        .todo-item > button:active {
+            color: rgba(0, 0, 0, 0.9);
+        }
+
+        .todo-item > div {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-left: 10px;
+        }
+    </style>
+    <div class="todo-item">
+        <button>
+            <slot name="todo-item-check">
+                <input type="checkbox">
+            </slot>
+        </button>
+        <button>
+            <slot name="icon-todo-item">
+                Category
+            </slot>
+        </button>
+        <div>
+            <slot name="todo-item">Faire les courses</slot>
+            <slot name="todo-date">00/00/00000</slot>
+        </div>
+        <button>
+            <slot name="icon-edit-todo-item">
+                edit
+            </slot>
+        </button>
+        <button>
+            <slot name="icon-delete-todo-item">
+                delete
+            </slot>
+        </button>
+
+    </div>
+
+</template>

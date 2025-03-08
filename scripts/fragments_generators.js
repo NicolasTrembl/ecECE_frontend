@@ -63,7 +63,8 @@ async function addfrags() {
     const fragsUrl = [
         "course_info",
         "grade_gauge",
-        "upcoming_class"
+        "upcoming_class",
+        "todo_item"
     ];
 
     for (let i = 0; i < fragsUrl.length; i++) {
