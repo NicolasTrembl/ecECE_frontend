@@ -118,7 +118,7 @@
     }
 
     .hide-complete {
-        display: none;
+        display: none !important;
     }
 
     /* Bouton Toggle */
@@ -164,6 +164,78 @@
         border-bottom: 1px dashed snow;
     }
 
+    .date-range-picker, .category-picker, .add-todo-item {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        top: 0;
+        right: 0;
+        background-color: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(5px);
+    }
+
+    .add-todo-item {
+        align-items: flex-start;
+        padding-left: 40%;
+
+    }
+
+    .add-todo-item > div {
+        padding: 0.5rem;
+    }
+
+    .date-range-picker > p, .category-picker > p, .add-todo-item > p {
+        color: snow;
+        font-size: 1.5rem;
+        margin: 1rem;
+    }
+
+    .date-range-picker > input, .add-todo-item > input {
+        padding: 0.5rem;
+        border-radius: 1rem;
+        border-color: snow;
+        background-color: rgba(0, 0, 0, 0.1);
+        color: snow;
+        font-size: 1rem;
+        margin: 0.5rem;
+    }
+
+    .add-todo-item > textarea {
+        padding: 0.5rem;
+        border-radius: 1rem;
+        border-color: snow;
+        background-color: rgba(0, 0, 0, 0.1);
+        color: snow;
+        font-size: 1rem;
+        margin: 0.5rem;
+        width: 30%;
+    }
+
+    .category-picker > select {
+        padding: 0.5rem;
+        border-radius: 1rem;
+        border-color: snow;
+        background-color: rgba(0, 0, 0, 0.1);
+        color: snow;
+        font-size: 1rem;
+        margin: 0.5rem;
+    }
+    
+
+    .date-range-picker > button, .category-picker > button, .add-todo-item > button {
+        padding: 0.5rem;
+        border-radius: 1rem;
+        border-color: snow;
+        background-color: rgba(0, 0, 0, 0.1);
+        color: snow;
+        font-size: 1rem;
+        margin: 0.5rem;
+    }
+
 
 </style>
 
@@ -180,19 +252,19 @@
             </div>
         </div>
         <div class="display-option">
-            <div class="todo-btn">
+            <div class="todo-btn" id="dateRangeBtn">
                 <i class="material-icons">schedule</i>
                 <p>Date</p>
             </div>
-            <div class="todo-btn">
+            <div class="todo-btn" id="isDoneBtn">
                 <i class="material-icons">done</i>
                 <p>Fait</p>
             </div>
-            <div class="todo-btn">
+            <div class="todo-btn" id="isImportantBtn">
                 <i class="material-icons">star</i>
                 <p>Important</p>
             </div>
-            <div class="todo-btn">
+            <div class="todo-btn" id="categoryBtn">
                 <i class="material-icons">category</i>
                 <p>Categorie</p>
             </div>
@@ -208,38 +280,39 @@
             </div>
         </div>
     </section>
-    <section class="todo-list list" id="todo-list">
-        <frag-todo-item>
-            <i slot="todo-item-check" class="material-icons">check_box_outline_blank</i>
-            <i slot="icon-todo-item" class="material-icons">category</i>
-            <p slot="todo-item">Acheter du pain</p>
-            <p slot="todo-date">12/12/2020</p>
-            <i slot="icon-edit-todo-item" class="material-icons">edit</i>
-            <i slot="icon-delete-todo-item" class="material-icons">delete</i>
-        </frag-todo-item>
-        <div class="todo-item-separator"></div>
-        <frag-todo-item>
-            <i slot="todo-item-check" class="material-icons">check_box_outline_blank</i>
-            <i slot="icon-todo-item" class="material-icons">category</i>
-            <p slot="todo-item">Acheter du pain</p>
-            <p slot="todo-date">12/12/2020</p>
-            <i slot="icon-edit-todo-item" class="material-icons">edit</i>
-            <i slot="icon-delete-todo-item" class="material-icons">delete</i>
-        </frag-todo-item>
-        <div class="todo-item-separator"></div>
-        <frag-todo-item>
-            <i slot="todo-item-check" class="material-icons">check_box_outline_blank</i>
-            <i slot="icon-todo-item" class="material-icons">category</i>
-            <p slot="todo-item">Acheter du pain</p>
-            <p slot="todo-date">12/12/2020</p>
-            <i slot="icon-edit-todo-item" class="material-icons">edit</i>
-            <i slot="icon-delete-todo-item" class="material-icons">delete</i>
-        </frag-todo-item>
-        <div class="add-btn">
-            <i class="material-icons">add</i>
-        </div>
+    <section class="todo-list-list" id="todo-list">
     </section>
-    <section class="todo-list kanban" style="display: none;">
+    <section class="todo-list-kanban" style="display: none;">
         lhqbefkugqvzifuygq
+    </section>
+    <section class="date-range-picker hide-complete" id="dateRangePicker">
+        <p>Choisissez les dates :</p>
+        <input type="date" id="dateStart"/>
+        <input type="date" id="dateEnd"/>
+        <button id="dateRangeConfirmBtn">Valider</button>
+    </section>
+    <section class="category-picker hide-complete" id="categoryPicker">
+        <p>Choisissez une catégorie :</p>
+        <select id="categorySelect" multiple>
+        </select>
+        <button id="categoryConfirmBtn">Valider</button>
+    </section>
+    <section class="add-todo-item">
+        <p>Nouvelle tache</p>
+        <input type="text" id="todo-title" placeholder="Titre de la tache"/>
+        <textarea id="todo-desc" placeholder="Description de la tache"></textarea>
+        <input type="date" id="todo-date"/>
+        <input type="text" id="todo-category" placeholder="Categorie de la tache"/>
+        <div>
+
+            <input type="checkbox" id="todo-important"/>
+            <label for="todo-important">Important</label>
+        </div>
+        <div>
+            <input type="checkbox" id="todo-done"/>
+            <label for="todo-done">Fait</label>
+        </div>
+        <button id="add-todo-item-btn">Ajouter</button>
+        
     </section>
 </div>
