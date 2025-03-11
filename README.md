@@ -1,7 +1,9 @@
 # 🌐 Environnement centralisé de l'ECE
 
 > [!WARNING]
-> Pour l'instant ce site n'est déployer nul part
+> Le site est hoster [ici](https://ececefrontend-production.up.railway.app/)
+> Comme le backend est hoster sur un tier gratuit, il s'éteint après quelque minutes d'inactivité
+> Donc si le site semble charger trop longtemps recharger la page peut le refaire marcher
 
 
 ## 📖 Table des matières

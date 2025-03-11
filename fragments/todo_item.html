@@ -2,7 +2,7 @@
     <style>
         .todo-item {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
             padding: 10px;
             padding-left: 48px;
@@ -11,11 +11,20 @@
             
         }
 
-        @media screen and (max-width: 768px) {
+        @media screen and (max-width: 900px) {
             .todo-item {
                 padding-left: 0;
                 padding-right: 0;
+                justify-content: space-between;
             }
+
+    
+            .spacer {
+                display: none;
+                width: 0 !important;
+            }
+
+
 
             .todo-cat, .todo-del, .todo-date {
                 display: none;
@@ -26,12 +35,14 @@
         .todo-item > p {
             margin: 0;
             padding: 0;
+            width: 20vw;
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
         }
 
         .todo-item > button {
+            width: 15vw;
             background-color: transparent;
             border: none;
             cursor: pointer;
@@ -48,38 +59,49 @@
         }
 
         .todo-item > div {
+            width: 15vw;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             margin-left: 10px;
         }
+
     </style>
     <div class="todo-item">
+        <div class="spacer"></div>
         <button>
             <slot name="todo-item-check">
                 <input type="checkbox">
             </slot>
         </button>
+        <div class="spacer"></div>
         <button class="todo-cat">
             <slot name="icon-todo-item">
                 Category
             </slot>
         </button>
+        <div class="spacer"></div>
+
         <div>
             <slot name="todo-item">Faire les courses</slot>
             <slot class="todo-date" name="todo-date">00/00/00000</slot>
         </div>
+        <div class="spacer"></div>
+
         <button >
             <slot name="icon-important-todo-item">
                 important
             </slot>
         </button>
+        <div class="spacer"></div>
+
         <button class="todo-del">
             <slot name="icon-delete-todo-item">
                 delete
             </slot>
         </button>
+        <div class="spacer"></div>
 
     </div>
 

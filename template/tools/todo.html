@@ -237,11 +237,57 @@
     }
 
 
+    .todo-list-kanban-column {
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: center;
+        width: 100%;
+        min-width: 20vw;
+        padding: 1rem;
+        border: 1px solid snow;
+        border-radius: 1rem;
+        margin: 1rem;
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+
+
+
+    .todo-list-kanban {
+        overflow-y: scroll;
+        display: flex;
+        flex-direction: row;
+        justify-content: start;
+        align-items: start;
+        width: 100%;
+        /* margin: 1rem; */
+    }
+
+    #addCatKanbanBtn {
+        cursor: pointer;
+    }
+
+    .kanban-card {
+        cursor: move;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 1rem;
+        border: 1px solid snow;
+        border-radius: 1rem;
+        margin: 1rem;
+        background-color: rgba(0, 0, 0, 0.1);
+        width: 100%;
+    }
+
 </style>
 
 <div class="content-wrapper">
 
     <button id="toggle-menu">Options</button>
+
+    
     <section class="top-options hidden hide-complete">
         <div class="search-option">
             <div class="search-bar">
@@ -270,21 +316,48 @@
             </div>
         </div>
         <div class="view-option">
-            <div class="todo-btn btn-selected radio">
+            <div class="todo-btn radio" id="listModeBtn">
                 <i class="material-icons">list_alt</i>
                 <p>Liste</p>
             </div>
-            <div class="todo-btn radio">
+            <div class="todo-btn btn-selected radio" id="kanbanModeBtn">
                 <i class="material-icons">view_kanban</i>
                 <p>Kanban</p>
             </div>
         </div>
     </section>
-    <section class="todo-list-list" id="todo-list">
+    
+    
+    
+    <section class="todo-list-list" style="display: none;" id="todo-list">
     </section>
-    <section class="todo-list-kanban" style="display: none;">
-        lhqbefkugqvzifuygq
+
+
+    <section class="todo-list-kanban" id="todo-kanban">
+        <div class="todo-list-kanban-column" id="todo-list-kanban-column-1">
+            <h2>A faire</h2>
+            <div  class="kanban-card" draggable="true">
+                <p>Acheter du pain</p>
+            </div>
+        </div>
+        <div class="todo-list-kanban-column" id="todo-list-kanban-column-2">
+            <h2>En cours</h2>
+        </div>
+        <div class="todo-list-kanban-column" id="todo-list-kanban-column-3">
+            <h2>Fait</h2>
+        </div>
+        <div class="todo-list-kanban-column" id="todo-list-kanban-column-4">
+            <h2>Important</h2>
+        </div>
+        <div class="todo-list-kanban-column" id="todo-list-kanban-column-5">
+            <h2 id="addCatKanbanBtn">Ajouter une colonne</h2>
+        </div>
+        
     </section>
+
+
+
+
     <section class="date-range-picker hide-complete" id="dateRangePicker">
         <p>Choisissez les dates :</p>
         <input type="date" id="dateStart"/>
@@ -297,22 +370,23 @@
         </select>
         <button id="categoryConfirmBtn">Valider</button>
     </section>
-    <section class="add-todo-item">
+    <section class="add-todo-item hide-complete" id="addTodoItem">
         <p>Nouvelle tache</p>
-        <input type="text" id="todo-title" placeholder="Titre de la tache"/>
-        <textarea id="todo-desc" placeholder="Description de la tache"></textarea>
-        <input type="date" id="todo-date"/>
-        <input type="text" id="todo-category" placeholder="Categorie de la tache"/>
+        <input type="text" id="todoTitle" placeholder="Titre de la tache"/>
+        <textarea id="todoDescription" placeholder="Description de la tache"></textarea>
+        <input type="date" id="todoDate"/>
+        <input type="text" id="todoCategory" placeholder="Categorie de la tache"/>
         <div>
 
-            <input type="checkbox" id="todo-important"/>
+            <input type="checkbox" id="todoImportant"/>
             <label for="todo-important">Important</label>
         </div>
         <div>
-            <input type="checkbox" id="todo-done"/>
+            <input type="checkbox" id="todoDone"/>
             <label for="todo-done">Fait</label>
         </div>
-        <button id="add-todo-item-btn">Ajouter</button>
-        
+        <button id="addTodoItemBtn">Ajouter</button>  
     </section>
+
+
 </div>
