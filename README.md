@@ -5,6 +5,8 @@
 > Comme le backend est hoster sur un tier gratuit, il s'éteint après quelque minutes d'inactivité
 > Donc si le site semble charger trop longtemps recharger la page peut le refaire marcher
 
+> [!WARNING]
+> Les pages ```/tools``` sont les seules où ne pas être connecter n'as pas d'importance  
 
 ## 📖 Table des matières
 - [🎯 Objectifs](#-objectifs)
@@ -13,6 +15,7 @@
     - [📊 Notes](#-notes)
     - [📅 Emploi du temps & absences](#-emploi-du-temps--absences)
     - [📚 Cours](#-cours)
+    - [🛠️ Outils](#-outils)
     - [👤 Compte](#-compte)
     - [⚙️ Réglages](#-réglages)
 - [🔒 Vie privée et sécurité](#-vie-privée-et-sécurité)
@@ -52,6 +55,18 @@ Le site *permettra* d'afficher son agenda avec :
 - 📆 Les cours et événements récupérés depuis Hyperplanning  
 - ❌ Les absences  
 - 📝 Les devoirs et notes ajoutés par l'utilisateur  
+
+#### 🛠️ Outils
+
+Le site proposera un certain nombre d'outils utiles aux étudiants comme par exemple :
+ - Une todo list
+ - Un timer
+ - Un auto remplisseur de rapport d'électronique
+ - Etc 
+
+Il proposera aussi des lien vers des site utile.
+
+
 
 #### 📚 Cours
 
