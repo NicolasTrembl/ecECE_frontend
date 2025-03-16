@@ -183,6 +183,16 @@ function setDatePicker() {
     const maxDate = document.getElementById("dateEnd");
     const datePickerShowBtn = document.getElementById('dateRangeBtn');
     const datePickerConfirmBtn = document.getElementById('dateRangeConfirmBtn');
+    const datePickerCancelBtn = document.getElementById('cancelDateRange');
+
+    datePickerCancelBtn.addEventListener('click', () => {
+        // unselect date range
+        datePickerShowBtn.classList.remove('btn-selected');
+        // dateRangeSelected = null;
+        // setTodoItem();
+        // populateKanban();
+        datePicker.classList.add('hide-complete');
+    });
 
     datePickerShowBtn.addEventListener('click', () => {
         if (dateRangeSelected != null && dateRangeSelected.length === 2) {
@@ -231,6 +241,17 @@ function setCategoryPicker() {
     const selector = document.getElementById('categorySelect');
     const categoryPickerShowBtn = document.getElementById('categoryBtn');
     const categoryPickerConfirmBtn = document.getElementById('categoryConfirmBtn');
+    const categoryPickerCancelBtn = document.getElementById('cancelCatBtn');
+
+    categoryPickerCancelBtn.addEventListener('click', () => {
+        // unselect categories
+        categoryPickerShowBtn.classList.remove('btn-selected');
+        // categoriesSelected = null;
+        // setTodoItem();
+        // populateKanban();
+        categoryPicker.classList.add('hide-complete');
+    }
+    );
 
 
 
@@ -256,7 +277,7 @@ function setCategoryPicker() {
                 selectedValue.push(options[i].value);
             }
         }
-        console.log(selectedValue);
+        // console.log(selectedValue);
         categoriesSelected = selectedValue.length > 0 ? selectedValue : null;
         categoryPicker.classList.add('hide-complete');
         setTodoItem();
@@ -279,11 +300,17 @@ function setAddButton(){
 
 function setAddScreen() {
     const confirm = document.getElementById("addTodoItemBtn");
+    const cancel = document.getElementById("cancelAddItem");
     const title = document.getElementById("todoTitle");
     const description = document.getElementById("todoDescription");
     const date = document.getElementById("todoDate");
     const category = document.getElementById("todoCategory");
     const important = document.getElementById("todoImportant");
+
+    cancel.addEventListener('click', () => {
+        const addTodoPanel = document.getElementById('addTodoItem');
+        addTodoPanel.classList.add('hide-complete');
+    });
     
     confirm.addEventListener('click', () => {
         const todoData = JSON.parse(localStorage.getItem('todoData')) || [];
@@ -329,6 +356,17 @@ function setModeSelect() {
 
 }
 
+function addCatBtn() {
+
+    return "";
+    // TODO : Add Add-category button
+    return `
+    <div class="todo-list-kanban-column" id="todo-list-kanban-column-5">
+        <h2 id="addCatKanbanBtn">Ajouter une colonne</h2>
+    </div>
+    `;
+}
+
 function populateKanban() {
     const todoData = JSON.parse(localStorage.getItem('todoData')) || [];
     const kanban = document.getElementById('todo-kanban');
@@ -358,7 +396,7 @@ function populateKanban() {
 
 
     if (filter_i.length === 0) {
-        kanban.innerHTML = '<p class="no-todo">Aucune tâche à afficher</p>';
+        kanban.innerHTML = '<p class="no-todo">Aucune tâche à afficher</p>' + addCatBtn();
         return;
     }
 
@@ -384,7 +422,8 @@ function populateKanban() {
             }).join('')}
         </div>
         `
-    }).join('');
+    }).join('')  + addCatBtn();
+
 }
 
 function setKanbanDragnDrop(){
@@ -398,20 +437,23 @@ function setKanbanDragnDrop(){
     
     function drop(ev) {
         // prevent card from being dropped on another card
-        if (!ev.target.classList.contains('todo-list-kanban-column')) {
+        if (
+            !ev.target.classList.contains('todo-list-kanban-column') || 
+            ev.target.id === 'addCatKanbanBtn'
+        ) {
             return;
         }
         ev.preventDefault();
         var data = ev.dataTransfer.getData("text");
         ev.target.appendChild(document.getElementById(data));
-        console.log(data);
+        // console.log(data);
         const todoData = JSON.parse(localStorage.getItem('todoData')) || [];
         const id = data.split("kCard")[1];
         const todo = todoData.filter(todo => todo.id == id)[0];
         const category = ev.target.querySelector('h2').textContent;
         todo.category = category;
-        console.log(todo);
-        console.log(category);
+        // console.log(todo);
+        // console.log(category);
         localStorage.setItem('todoData', JSON.stringify(todoData));
         setTodoItem();
     }

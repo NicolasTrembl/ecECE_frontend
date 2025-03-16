@@ -1,11 +1,5 @@
 <style>
-    .content-wrapper {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        margin: 1rem;
-    }
+
 
     section {
         width: 100%;
@@ -178,10 +172,19 @@
         backdrop-filter: blur(5px);
     }
 
+    /* .date-range-picker > *, .category-picker > *, .add-todo-item > * {
+        text-align: left;
+        width: 80%;
+    } */
+
     .add-todo-item {
         align-items: flex-start;
         padding-left: 40%;
 
+    }
+
+    button {
+        cursor: pointer;
     }
 
     .add-todo-item > div {
@@ -196,6 +199,8 @@
 
     .date-range-picker > input, .add-todo-item > input {
         padding: 0.5rem;
+        width: 30%;
+        min-width: 200px;
         border-radius: 1rem;
         border-color: snow;
         background-color: rgba(0, 0, 0, 0.1);
@@ -205,6 +210,7 @@
     }
 
     .add-todo-item > textarea {
+
         padding: 0.5rem;
         border-radius: 1rem;
         border-color: snow;
@@ -213,6 +219,7 @@
         font-size: 1rem;
         margin: 0.5rem;
         width: 30%;
+        min-width: 200px;
     }
 
     .category-picker > select {
@@ -226,7 +233,7 @@
     }
     
 
-    .date-range-picker > button, .category-picker > button, .add-todo-item > button {
+    .date-range-picker > div > button, .category-picker > div > button, .add-todo-item > div > button{
         padding: 0.5rem;
         border-radius: 1rem;
         border-color: snow;
@@ -234,6 +241,12 @@
         color: snow;
         font-size: 1rem;
         margin: 0.5rem;
+    }
+
+    .date-range-picker > div:last-of-type, .category-picker > div:last-of-type, .add-todo-item > div:last-of-type {
+        display: flex;
+        justify-content: space-between;
+        width: 30%;
     }
 
 
@@ -281,9 +294,63 @@
         width: 100%;
     }
 
+    @media screen and (max-width: 900px) {
+        .todo-list-kanban {
+            overflow-x: scroll;
+            display: flex;
+            flex-direction: column;
+            justify-content: start;
+            align-items: start;
+            /* width: 95%; */
+        }
+
+        .todo-list-kanban-column {
+            display: flex;
+            flex-direction: row;
+            justify-content: start;
+            align-items: start;
+            width: 95%;
+            min-width: 20vw;
+            padding: 1rem;
+            border: 1px solid snow;
+            border-radius: 1rem;
+            /* margin: 1rem; */
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        .kanban-card {
+            cursor: move;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            border: 1px solid snow;
+            border-radius: 1rem;
+            margin: 1rem;
+            background-color: rgba(0, 0, 0, 0.1);
+            width: 100%;
+            min-width: 20vw;
+        }
+
+
+
+        
+    }
+
+    .content-wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 1rem;    
+    }
+
+
+
 </style>
 
-<div class="content-wrapper">
+<div class="content-wrapper" >
 
     <button id="toggle-menu">Options</button>
 
@@ -316,11 +383,11 @@
             </div>
         </div>
         <div class="view-option">
-            <div class="todo-btn radio" id="listModeBtn">
+            <div class="todo-btn btn-selected radio" id="listModeBtn">
                 <i class="material-icons">list_alt</i>
                 <p>Liste</p>
             </div>
-            <div class="todo-btn btn-selected radio" id="kanbanModeBtn">
+            <div class="todo-btn radio" id="kanbanModeBtn">
                 <i class="material-icons">view_kanban</i>
                 <p>Kanban</p>
             </div>
@@ -329,30 +396,12 @@
     
     
     
-    <section class="todo-list-list" style="display: none;" id="todo-list">
+    <section class="todo-list-list"  id="todo-list">
     </section>
 
 
-    <section class="todo-list-kanban" id="todo-kanban">
-        <div class="todo-list-kanban-column" id="todo-list-kanban-column-1">
-            <h2>A faire</h2>
-            <div  class="kanban-card" draggable="true">
-                <p>Acheter du pain</p>
-            </div>
-        </div>
-        <div class="todo-list-kanban-column" id="todo-list-kanban-column-2">
-            <h2>En cours</h2>
-        </div>
-        <div class="todo-list-kanban-column" id="todo-list-kanban-column-3">
-            <h2>Fait</h2>
-        </div>
-        <div class="todo-list-kanban-column" id="todo-list-kanban-column-4">
-            <h2>Important</h2>
-        </div>
-        <div class="todo-list-kanban-column" id="todo-list-kanban-column-5">
-            <h2 id="addCatKanbanBtn">Ajouter une colonne</h2>
-        </div>
-        
+    <section class="todo-list-kanban" style="display: none;"  id="todo-kanban">
+
     </section>
 
 
@@ -362,13 +411,19 @@
         <p>Choisissez les dates :</p>
         <input type="date" id="dateStart"/>
         <input type="date" id="dateEnd"/>
-        <button id="dateRangeConfirmBtn">Valider</button>
+        <div>   
+            <button id="cancelDateRange">Annuler</button>
+            <button id="dateRangeConfirmBtn">Valider</button>
+        </div>
     </section>
     <section class="category-picker hide-complete" id="categoryPicker">
         <p>Choisissez une catégorie :</p>
         <select id="categorySelect" multiple>
         </select>
-        <button id="categoryConfirmBtn">Valider</button>
+        <div>
+            <button id="cancelCatBtn">Annuler</button>
+            <button id="categoryConfirmBtn">Valider</button>
+        </div>
     </section>
     <section class="add-todo-item hide-complete" id="addTodoItem">
         <p>Nouvelle tache</p>
@@ -385,7 +440,10 @@
             <input type="checkbox" id="todoDone"/>
             <label for="todo-done">Fait</label>
         </div>
-        <button id="addTodoItemBtn">Ajouter</button>  
+        <div>
+            <button id="cancelAddItem">Annuler</button>  
+            <button id="addTodoItemBtn">Ajouter</button>  
+        </div>
     </section>
 
 
