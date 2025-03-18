@@ -20,87 +20,6 @@ import {
 
 
 
-const data = {
-    numero_tp: 2,
-    titre: "Le thermomètre numérique",
-    authors: [
-        { prenom: "Nicolas", nom: "TREMBLAY" },
-        { prenom: "Tristan", nom: "VALENTINO" },
-        { prenom: "Lucas", nom: "MOHEN" },
-    ],
-    enseignant: "M. FONTON",
-    annee: 2,
-    groupe: 3,
-    date: new Date(),
-    parties: [{
-        titre: "Partie I. Vue-mètre de température",
-        sous_parties: [{ 
-            titre: "A. Partie théorique",
-            questions: [{
-                nom: "T1",
-                reponse: [{
-                    type: "code", value: "int x = 15;\nprintf(\"x = %d\", x);\nfor (int i = 0; i < 10; i++) {\n    printf(\"i = %d\", i);\n}", 
-                    langage: "c"
-                }]
-            }]
-        }, { 
-            titre: "B. Simulation",
-            questions: [{
-                nom: "T1",
-                reponse: [{
-                    type: "text", value: "TEXT"
-                },{
-                    type: "code", value: "x = 15", langage: "python"
-                },{
-                    type: "image", value: "url", description: "description"
-                }]
-            }]
-        }]
-    }, {
-        titre: "Partie II. Précision des mesures",
-        sous_parties: [{ 
-            titre: "A. Partie théorique",
-            questions: [{
-                nom: "T1",
-                reponse: [{
-                    type: "text", value: "TEXT"
-                }]
-            }]
-        }, { 
-            titre: "B. Simulation",
-            questions: [{
-                nom: "T1",
-                reponse: [{
-                    type: "text", value: "TEXT"
-                },{
-                    type: "code", value: "x = 15", langage: "python"
-                },{
-                    type: "image", value: "url", description: "description"
-                }]
-            }]
-        }, { 
-            titre: "C. Mesure d’une température négative",
-            questions: [{
-                nom: "T1",
-                reponse: [{
-                    type: "text", value: "TEXT"
-                }]
-            }]
-        }]
-    }, {
-        titre: "Partie III. Comparaison analogique simple",
-        sous_parties: [{ 
-            titre: null,
-            questions: [{
-                nom: "T1",
-                reponse: [{
-                    type: "text", value: "TEXT"
-                }]
-            }]
-        }]
-    }]
-}
-
 async function getImageBuffer(url) {
     try {
         const response = await fetch(url);
@@ -235,7 +154,7 @@ function generateCodeBloc(reponse) {
 
 
 
-async function generateDoc() {
+async function generateDoc(data) {
     let imgBuffer;
     try {
         imgBuffer = await getImageBuffer("/assets/tools/report-filler/image.jpeg");
@@ -605,101 +524,418 @@ async function generateDoc() {
     });
 }
 
-function addAuthor() {
-    const authors = document.getElementById("authors");
-    const addBtn = document.getElementById("addAuthBtn");
-    addBtn.remove();
-    const numbAuth = authors.children.length + 1;
-    authors.innerHTML += `
-        <div class="duo-input">
-            <input type="text" class="author" placeholder="Prénom de l'auteur n°${numbAuth}"/>
-            <input type="text" class="author" placeholder="Nom de l'auteur n°${numbAuth}"/>
-        </div>
-        <div id="addAuthBtn" class="i-wrapper">
-            <i class="material-icons" onclick="addAuthor()">add</i>
-        </div>
-    `;
-    document.getElementById("addAuthBtn").addEventListener("click", addAuthor);
 
+function onWordDl() {
+    const data = getData();
+    generateDoc(data);
 }
 
-function addSection() {
-    const sections = document.getElementById("fileContent");
-    const addBtn = document.getElementById("addSectBtn");
-    addBtn.remove();
-    const number = sections.children.length;
-    sections.innerHTML += `
-        <article id="artSec${number}">
-            <input id="sec${number}" type="text" class="fill" placeholder="Nom de la partie"/>
-            <div class="duo-input">
-                <input id="sec${number}AddPartBtn" type="button" class="section" value="Ajouter une sous-partie"/>
-                <input id="sec${number}AddContBtn" type="button" class="section" value="Ajouter du contenu"/>
-            </div>
-            <div id="subSections${number}">
-            </div>
-        </article>
-        <div id="addSectBtn" class="i-wrapper">
-            <i class="material-icons" onclick="">add</i>
-        </div>
-        <div id="orphanContent${number}">
-        </div>
-    `;
-    document.getElementById("addSectBtn").addEventListener("click", addSection);
-    document.getElementById(`sec${number}AddPartBtn`).addEventListener("click", addSubSection);
-    document.getElementById(`sec${number}AddContBtn`).addEventListener("click", addContent);
+function updateTitle(event) {
+    const pElement = event.target.previousElementSibling;
+    const newTitle = prompt("Entrez le nouveau titre:", pElement.textContent);
+    if (newTitle) {
+        pElement.textContent = newTitle;
+        updateData();
+    }
 }
-
-function addSubSection() {
-    const cliked = this.id;
-    const number = cliked.split("sec")[1].split("Add")[0];
-    const subNumber = document.getElementById(`subSections${number}`).children.length;
-    const subSections = document.getElementById(`subSections${number}`);
-    subSections.innerHTML += `
-        <div id="subSec${number}.${subNumber}">
-            <input id="sec${number}.${subNumber}" type="text" class="fill" placeholder="Nom de la sous-partie"/>
-            <input id="sec${number}.${subNumber}AddContBtn" type="button" class="fill" value="Ajouter du contenu"/>
-        </div>
-    `;
-}
+let data = {
+    parties: [],
+};
 
 
-function addContent() {
-    const cliked = this.id;
-    const fulln = cliked.split("sec")[1].split("Add")[0];
-    if (fulln.includes(".")) {
-        const number = fulln.split(".")[0];
-        const subNumber = fulln.split(".")[1];
-        const content = document.getElementById(`subSec${number}.${subNumber}`);
-        content.innerHTML += `
-            <div id="contSec${number}.${subNumber}">
-                <input id="sec${number}.${subNumber}.cont" type="text" class="fill" placeholder="Nom de la question"/>
-                <input id="sec${number}.${subNumber}.contAddBtn" type="button" class="fill" value="Ajouter une réponse"/>
-            </div>
+
+function createHtmlFromData(data) {
+    const contentSect = document.querySelector(".content-sect");
+    contentSect.innerHTML = "";
+
+    data.parties.forEach((partie) => {
+        const partDetails = document.createElement("details");
+        partDetails.classList.add("parts-details");
+        partDetails.innerHTML = `
+            <summary class="parts-title">
+                <p>${partie.titre}</p>
+                <i class="material-icons">edit</i>
+            </summary>
+            <button class="btn add-sub-part">Ajouter une sous-partie</button>
+            <button class="btn add-content">Ajouter du contenu</button>
         `;
-        document.getElementById(`sec${number}.${subNumber}.contAddBtn`).addEventListener("click", addResponse);
-    } else {
-        const content = document.getElementById(`orphanContent${fulln}`);
-        const number = content.children.length;
-        content.innerHTML += `
-            <div id="orphan${fulln}.${number}">
-                <input id="orphan${fulln}.${number}Cont" type="text" class="fill" placeholder="Nom de la question"/>
-                <div class="duo-input">
-                    <input id="orphan${fulln}.${number}ContType" type="button" class="section" value="Type"/>
-                    <input id="orphan${fulln}.${number}ContValue" type="text" class="section" placeholder="Texte"/>
-                </div>
-            </div>
-        `;
+
+        partie.sous_parties.forEach((sousPartie) => {
+            const subPartDetails = document.createElement("details");
+            subPartDetails.classList.add("parts-details");
+            subPartDetails.innerHTML = `
+                <summary class="parts-title">
+                    <p>${sousPartie.titre}</p>
+                    <i class="material-icons">edit</i>
+                </summary>
+                <button class="btn add-content">Ajouter du contenu</button>
+            `;
+
+            sousPartie.questions.forEach((question) => {
+                const questionDiv = document.createElement("div");
+                questionDiv.classList.add("question");
+                questionDiv.innerHTML = `
+                    <p>${question.nom}</p>
+                    <i class="material-icons">edit</i>
+                `;
+                subPartDetails.insertBefore(questionDiv, subPartDetails.querySelector(".btn.add-content"));
+            });
+
+            partDetails.insertBefore(subPartDetails, partDetails.querySelector(".btn.add-sub-part"));
+        });
+
+        contentSect.insertBefore(partDetails, contentSect.querySelector(".btn.add-part"));
+    });
+
+    contentSect.innerHTML += `
+        <button class="btn add-part">Ajouter une partie</button>
+    `;
+}
+
+
+
+function createContentItem() {
+    const contentItem = document.createElement("div");
+    contentItem.classList.add("content-item");
+    contentItem.innerHTML = `
+        <label for="content_type">Type de contenu</label>
+        <select id="content_type" name="content_type">
+            <option value="text">Texte</option>
+            <option value="math">Math</option>
+            <option value="image">Image</option>
+            <option value="code">Code</option>
+        </select>
+        <textarea id="content_value" name="content_value" placeholder="Contenu"></textarea>
+        <button class="btn move-up">Monter</button>
+        <button class="btn move-down">Descendre</button>
+        <button class="btn delete-content">Supprimer</button>
+    `;
+    return contentItem;
+}
+
+function addContentItem(event) {
+    const contentList = event.target.closest(".question-edit-panel").querySelector(".content-list");
+    const contentItem = createContentItem();
+    contentList.appendChild(contentItem);
+    initContentItemActions(contentItem);
+}
+
+function deleteContentItem(event) {
+    const contentItem = event.target.closest(".content-item");
+    contentItem.remove();
+}
+
+function moveContentItemUp(event) {
+    const contentItem = event.target.closest(".content-item");
+    const previousItem = contentItem.previousElementSibling;
+    if (previousItem) {
+        contentItem.parentNode.insertBefore(contentItem, previousItem);
     }
 }
 
-
-
-
-function init() {
-    document.getElementById("addAuthBtn").addEventListener("click", addAuthor);
-    document.getElementById("addSectBtn").addEventListener("click", addSection);
-    document.getElementById("sec1AddPartBtn").addEventListener("click", addSubSection);
-    document.getElementById("sec1AddContBtn").addEventListener("click", addContent);
+function moveContentItemDown(event) {
+    const contentItem = event.target.closest(".content-item");
+    const nextItem = contentItem.nextElementSibling;
+    if (nextItem) {
+        contentItem.parentNode.insertBefore(nextItem, contentItem);
+    }
 }
 
-init()
+function saveQuestion(event) {
+    const editPanel = event.target.closest(".question-edit-panel");
+    const questionTitle = editPanel.querySelector("#question_title").value;
+    const contentItems = editPanel.querySelectorAll(".content-item");
+    const reponses = [];
+    contentItems.forEach((item) => {
+        const type = item.querySelector("#content_type").value;
+        const value = item.querySelector("#content_value").value;
+        reponses.push({
+            type: type,
+            value: value,
+        });
+    });
+
+    const questionElement = document.querySelector(".question-editing");
+    questionElement.querySelector("p").textContent = questionTitle;
+    questionElement.dataset.reponses = JSON.stringify(reponses);
+    questionElement.classList.remove("question-editing");
+
+    updateData();
+    editPanel.style.display = "none";
+}
+
+function initContentItemActions(contentItem) {
+    contentItem.querySelector(".delete-content").addEventListener("click", deleteContentItem);
+    contentItem.querySelector(".move-up").addEventListener("click", moveContentItemUp);
+    contentItem.querySelector(".move-down").addEventListener("click", moveContentItemDown);
+}
+
+function initQuestionEditPanelActions() {
+    document.querySelectorAll(".add-content-item").forEach((button) => {
+        button.addEventListener("click", addContentItem);
+    });
+    document.querySelectorAll(".save-question").forEach((button) => {
+        button.addEventListener("click", saveQuestion);
+    });
+}
+
+
+
+
+function addPart() {
+    const section = document.querySelector(".content-sect");
+    const newPart = document.createElement("details");
+    newPart.classList.add("parts-details");
+    newPart.innerHTML = `
+        <summary class="parts-title">
+            <p>Nouvelle Partie</p>
+            <i class="material-icons">edit</i>
+        </summary>
+        <button class="btn add-sub-part">Ajouter une sous-partie</button>
+        <button class="btn add-content">Ajouter du contenu</button>
+    `;
+    section.insertBefore(newPart, section.querySelector(".btn"));
+    initTitleModif();
+    initAddSubPart();
+    initAddContent();
+}
+
+function addSubPart(event) {
+    const part = event.target.closest(".parts-details");
+    const newSubPart = document.createElement("details");
+    newSubPart.classList.add("parts-details");
+    newSubPart.innerHTML = `
+        <summary class="parts-title">
+            <p>Nouvelle Sous-partie</p>
+            <i class="material-icons">edit</i>
+        </summary>
+        <button class="btn add-content">Ajouter du contenu</button>
+    `;
+    part.insertBefore(newSubPart, event.target);
+    initTitleModif();
+    initAddContent();
+}
+
+function addContent(event) {
+    const subPart = event.target.closest(".parts-details");
+    const newContent = document.createElement("div");
+    newContent.classList.add("question");
+    newContent.innerHTML = `
+        <p>Nouvelle Question</p>
+        <i class="material-icons">edit</i>
+    `;
+    subPart.insertBefore(newContent, event.target);
+    newContent.querySelector("i").addEventListener("click", editQuestion);
+    initTitleModif();
+}
+
+function initAddPart() {
+    document.querySelector(".content-sect > .btn").addEventListener("click", addPart);
+}
+
+function initAddSubPart() {
+    document.querySelectorAll(".add-sub-part").forEach((button) => {
+        button.addEventListener("click", addSubPart);
+    });
+}
+
+function initAddContent() {
+    document.querySelectorAll(".add-content").forEach((button) => {
+        button.addEventListener("click", addContent);
+    });
+}
+
+
+function initTitleModif() {
+    document.querySelectorAll(".parts-title i").forEach((icon) => {
+        icon.addEventListener("click", updateTitle);
+    });
+}
+
+
+
+
+function editQuestion(event) {
+    const question = event.target.closest(".question");
+    document.querySelectorAll(".question").forEach((q) => q.classList.remove("question-editing"));
+    question.classList.add("question-editing");
+
+    const editPanel = document.querySelector(".question-edit-panel");
+    editPanel.style.display = "flex";
+    
+    const questionTitle = question.querySelector("p").textContent;
+    editPanel.querySelector("#question_title").value = questionTitle;
+    
+    const contentList = editPanel.querySelector(".content-list");
+    contentList.innerHTML = "";
+    
+    let responses = [];
+    if (question.dataset.reponses) {
+        try {
+            responses = JSON.parse(question.dataset.reponses);
+        } catch (e) {
+            console.error("Error parsing question responses:", e);
+        }
+    }
+    
+    if (responses.length > 0) {
+        responses.forEach(response => {
+            const contentItem = createContentItem();
+            contentItem.querySelector("#content_type").value = response.type;
+            contentItem.querySelector("#content_value").value = response.value;
+            contentList.appendChild(contentItem);
+            initContentItemActions(contentItem);
+        });
+    } else {
+        const contentItem = createContentItem();
+        contentList.appendChild(contentItem);
+        initContentItemActions(contentItem);
+    }
+}
+
+function updateData() {
+    const sections = document.querySelectorAll(".content-sect > details");
+    const parts = [];
+    
+    sections.forEach((section) => {
+        const partTitle = section.querySelector(".parts-title > p").textContent;
+        const subSections = section.querySelectorAll("details");
+        const subParts = [];
+        
+        const directQuestions = Array.from(section.children)
+            .filter(el => el.classList && el.classList.contains("question"));
+        
+        subSections.forEach((subSection) => {
+            const subPartTitle = subSection.querySelector(".parts-title > p").textContent;
+            const questions = subSection.querySelectorAll(".question");
+            const questionsList = [];
+            
+            questions.forEach((question) => {
+                let responses = [];
+                if (question.dataset.reponses) {
+                    try {
+                        responses = JSON.parse(question.dataset.reponses);
+                    } catch (e) {
+                        console.error("Error parsing responses:", e);
+                        responses = [{
+                            type: "text",
+                            value: ""
+                        }];
+                    }
+                } else {
+                    responses = [{
+                        type: "text",
+                        value: ""
+                    }];
+                }
+                
+                questionsList.push({
+                    nom: question.querySelector("p").textContent,
+                    reponse: responses
+                });
+            });
+            
+            subParts.push({
+                titre: subPartTitle,
+                questions: questionsList
+            });
+        });
+        
+        const directQuestionsList = [];
+        directQuestions.forEach((question) => {
+            let responses = [];
+            if (question.dataset.reponses) {
+                try {
+                    responses = JSON.parse(question.dataset.reponses);
+                } catch (e) {
+                    console.error("Error parsing responses:", e);
+                    responses = [{
+                        type: "text",
+                        value: ""
+                    }];
+                }
+            } else {
+                responses = [{
+                    type: "text",
+                    value: ""
+                }];
+            }
+            
+            directQuestionsList.push({
+                nom: question.querySelector("p").textContent,
+                reponse: responses
+            });
+        });
+        
+        if (directQuestionsList.length > 0) {
+            subParts.push({
+                titre: "",
+                questions: directQuestionsList
+            });
+        }
+        
+        parts.push({
+            titre: partTitle,
+            sous_parties: subParts
+        });
+    });
+    
+    data.parties = parts;
+    console.log("Updated data:", data);
+}
+
+function init() {
+    if (!data.parties || data.parties.length === 0) {
+        data = {
+            annee: "",
+            groupe: "",
+            date: new Date(),
+            numero_tp: "",
+            titre: "",
+            enseignant: "",
+            authors: [],
+            parties: []
+        };
+    }
+    
+    createHtmlFromData(data);
+    
+    initAddPart();
+    initAddSubPart();
+    initAddContent();
+    initTitleModif();
+    
+    document.querySelectorAll(".question i").forEach((icon) => {
+        icon.addEventListener("click", editQuestion);
+    });
+    
+    initQuestionEditPanelActions();
+    
+    document.getElementById("wordDl").addEventListener("click", onWordDl);
+}
+
+function getData() {
+    const authors = document.getElementsByClassName("author");
+    const authorList = [];
+    for (let i = 0; i < authors.length; i += 2) {
+        authorList.push({
+            prenom: authors[i].value,
+            nom: authors[i + 1].value,
+        });
+    }
+    
+    updateData();
+    
+    return {
+        annee: document.getElementById("annee").value,
+        groupe: document.getElementById("groupe").value,
+        date: new Date(),
+        numero_tp: document.getElementById("numero_tp").value,
+        titre: document.getElementById("titre").value,
+        enseignant: document.getElementById("enseignant").value,
+        authors: authorList,
+        parties: data.parties
+    };
+}
+
+init();

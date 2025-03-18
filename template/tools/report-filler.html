@@ -1,147 +1,310 @@
 <style>
     .content-wrapper {
         flex: 1 1 auto;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
     }
-    .file-meta, .file-content {
-        height: 35vh;
+
+    @media (max-width: 800px) {
+        .prog_indicator {
+            position: fixed;
+            left: 20vw;
+            top: 10vh;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            border-radius: 50px;
+            width: 60vw;
+        }
+    }
+
+    @media (min-width: 800px) {
+        .prog_indicator {
+            position: fixed;
+            top: 33vh;
+            left: 1vw;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            justify-content: space-evenly;
+            border-radius: 50px;
+            height: 30vh;
+        }
+    }
+
+    .prog_indicator {
+        border: 2px solid snow;
+        background-color: rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(2px);
+        padding: 10px;
+    }
+
+    .prog_indicator .active {
+        color: black;
+    }
+
+    .meta-sect, .content-sect {
+        display: flex;
         width: 100%;
-        flex: 1 1 auto;
-        display: flex;
         flex-direction: column;
-        justify-content: start;
+        justify-content: space-evenly;
         align-items: center;
-        margin-bottom: 20px;
-        overflow-y: auto;
+        margin-top: 8vh;
     }
 
-    .content-wrapper input, .i-wrapper {
-        background-color: rgba(0, 0, 0, 0.2);
-        border: 1px solid #ccc;
-        margin: 5px;
+    .meta-sect > * {
+        margin: 10px;
+    }
+
+    .meta-sect label {
+        font-size: 1.5em;
+    }
+
+    .meta-sect input {
+        font-size: 1.5em;
         padding: 5px;
-        width: 200px;
+        border-radius: 5px;
+        width: 80%;
+        background-color: rgba(0, 0, 0, 0.2);
+        border: 1px solid snow;
     }
 
-    .i-wrapper, .fill {
+    .meta-sect button {
+        font-size: 1.5em;
+        padding: 5px;
+        border-radius: 5px;
+        width: 80%;
+        background-color: rgba(0, 0, 0, 0.2);
+        border: 1px solid snow;
+    }
+
+    .btn {
+        margin-top: 10px;
+        padding: 5px;
+        border-radius: 5px;
+        width: 90%;
+        background-color: rgba(0, 0, 0, 0.2);
+        border: 1px solid snow;
+    }
+
+    .content-sect details {
+        display: block;
+        margin-top: 10px;
+        padding: 10px;
+        width: 90%;
+        background-color: rgba(0, 0, 0, 0.2);
+        border: 1px solid snow;
+        border-radius: 10px;
+    }
+    
+    .content-sect *:not(.parts-title, p) {
+        margin-left: 2.5%;
+    }
+
+    .parts-title {
+        width: 100%;
         display: flex;
         flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        width: 415px !important;
+        justify-content: space-between;
     }
 
-    .i-wrapper {
+    .question {
+        width: 90%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px;
+        margin-top: 10px;
+        background-color: rgba(0, 0, 0, 0.2);
+        border: 1px solid snow;
+        border-radius: 10px;
+    }
+
+    .parts-title i, .question i, .parts-title p, .question p {
         cursor: pointer;
     }
 
-    #authors {
-        display: flex;
-        flex: 1 1 auto;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .file-meta > h2, .file-content > h2 {
-        padding-bottom: 20px;
-    }
-
-    .file-meta > h3 {
-        padding: 8px;
-    }
-
-    .download {
-        height: 10vh;
+    .question-edit-panel {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(5px);
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        padding: 20px;
+        box-sizing: border-box;
     }
 
-    .download > h2 {
-        padding-bottom: 20px;
+    .question-edit-panel > * {
+        width: 80%;
+        margin: 10px 0;
     }
 
-    .dl-options {
+    .question-edit-panel label {
+        font-size: 1.5em;
+    }
+
+    .question-edit-panel input, .question-edit-panel select, .question-edit-panel textarea {
+        font-size: 1.5em;
+        padding: 5px;
+        border-radius: 5px;
+        width: 90%;
+        background-color: rgba(0, 0, 0, 0.2);
+        border: 1px solid snow;
+    }
+
+    .content-list {
+        width: 100%;
         display: flex;
-        flex-direction: row;
-        justify-content: center;
+        overflow-y: auto;
+        flex-direction: column;
         align-items: center;
     }
 
-
-    input[type=button] {
-        cursor: pointer;
+    .content-item {
+        width: 90%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+        margin-top: 10px;
+        background-color: rgba(0, 0, 0, 0.2);
+        border: 1px solid snow;
+        border-radius: 10px;
     }
+
+    .content-item label {
+        font-size: 1.5em;
+    }
+
+    .content-item option {
+        background-color: rgba(0, 0, 0, 0.2);
+        border: 1px solid snow;
+        color: snow;
+    }
+
+    .content-item select, .content-item textarea {
+        font-size: 1.5em;
+        padding: 5px;
+        border-radius: 5px;
+        width: 90%;
+        background-color: rgba(0, 0, 0, 0.2);
+        border: 1px solid snow;
+        margin-top: 10px;
+    }
+
+    .content-item .btn {
+        margin-top: 10px;
+        padding: 5px;
+        border-radius: 5px;
+        width: 90%;
+        background-color: rgba(0, 0, 0, 0.2);
+        border: 1px solid snow;
+    }
+
+
 
 </style>
 <div class="content-wrapper">
-    <section class="file-meta">
-        <h2>
-            Informations sur le TP
-        </h2>
-        <h3>
-            Informations générales
-        </h3>
-        <div class="duo-input">
-            <input type="text" class="name" placeholder="Nom du TP"/>
-            <input type="number" class="number" placeholder="Numéro de TP"/>
-        </div>
-        <div class="duo-input">
-            <input type="date" class="date"/>
-            <input type="text" class="teacher" placeholder="Nom de l'enseignant"/>
-        </div>
-        <div class="duo-input">
-            <input type="number" class="group" placeholder="Groupe"/>
-            <input type="number" class="year" placeholder="Année (INGX)"/>
-        </div>
-        <h3>
-            Auteurs
-        </h3>
-        <div id="authors">
-            <div class="duo-input">
-                <input type="text" class="author" placeholder="Prénom de l'auteur n°1"/>
-                <input type="text" class="author" placeholder="Nom de l'auteur n°1"/>
-            </div>
-            <div id="addAuthBtn" class="i-wrapper">
-                <i class="material-icons">add</i>
-            </div>
-        </div>
+    <article class="prog_indicator">
+        <i class="material-icons">backup_table</i>
+        <i class="material-icons active">description</i>
+        <i class="material-icons">download</i>
+    </article>
+    <section class="meta-sect" style="display: none;">
+        <!-- Name of the TP -->
+        <label for="tp_name">Nom du TP</label>
+        <input type="text" id="tp_name" name="tp_name" required>
+        <!-- Number of the TP -->
+        <label for="tp_number">Numéro du TP</label>
+        <input type="number" id="tp_number" name="tp_number" required>
+        <!-- Group number -->
+        <label for="group_number">Numéro du groupe</label>
+        <input type="number" id="group_number" name="group_number" required>
+        <!-- Date of the TP -->
+        <label for="tp_date">Date du TP</label>
+        <input type="date" id="tp_date" name="tp_date" required>
+        <!-- Year of the group -->
+        <label for="group_year">Année (ING[X])</label>
+        <input type="number" id="group_year" name="group_year" required>
+        <!-- Name of the teacher -->
+        <label for="teacher_name">Nom du prof</label>
+        <input type="text" id="teacher_name" name="teacher_name" required>
+        <!-- Name of the student -->
+        <label for="student_name">Prénom de l'étudiant</label>
+        <input type="text" id="student_name" name="student_name" required>
+        <!-- Surname of the student -->
+        <label for="student_surname">Nom de l'étudiant</label>
+        <input type="text" id="student_surname" name="student_surname" required>
+        <!-- Add Student Btn -->
+        <button id="add_student">Ajouter un étudiant</button>
+        <!-- Confirm Btn -->
+        <button id="confirm">Confirmer</button>
     </section>
-    <section class="file-content" id="fileContent">
-        <h2>
-            Sections du TP
-        </h2>
-        <article id="artSec1">
-            <input id="sec1" type="text" class="fill" placeholder="Nom de la partie"/>
-            <div class="duo-input">
-                <input id="sec1AddPartBtn" type="button" class="section" value="Ajouter une sous-partie"/>
-                <input id="sec1AddContBtn" type="button" class="section" value="Ajouter du contenu"/>
+    <section class="content-sect">
+        <details class="parts-details">
+            <summary class="parts-title">
+                <p>Partie 1</p>
+                <i class="material-icons">edit</i>
+            </summary>
+            <details class="parts-details">
+                <summary class="parts-title">
+                    <p>Sous-partie 1.1</p>
+                    <i class="material-icons">edit</i>
+                </summary>
+                <div class="question">
+                    <p>Question 1</p>
+                    <i class="material-icons">edit</i>
+                </div>
+                <button class="btn add-content">Ajouter du contenu</button>
+            </details>
+            <button class="btn add-sub-part">Ajouter une sous-partie</button>
+            <div class="question">
+                <p>Question 2</p>
+                <i class="material-icons">edit</i>
             </div>
-            <div id="subSections1">
-
+            <button class="btn add-content">Ajouter du contenu</button>
+        </details>
+        <details class="parts-details">
+            <summary class="parts-title">
+                <p>Partie 2</p>
+                <i class="material-icons">edit</i>
+            </summary>
+            <details class="parts-details">
+                <summary class="parts-title">
+                    <p>Sous-partie 2.1</p>
+                    <i class="material-icons">edit</i>
+                </summary>
+                <div class="question">
+                    <p>Question 3</p>
+                    <i class="material-icons">edit</i>
+                </div>
+                <button class="btn add-content">Ajouter du contenu</button>
+            </details>
+            <button class="btn add-sub-part">Ajouter une sous-partie</button>
+            <div class="question">
+                <p>Question 4</p>
+                <i class="material-icons">edit</i>
             </div>
-            <div id="orphanContent1">
-
-            </div>
-        </article>
-        <div id="addSectBtn" class="i-wrapper">
-            <i class="material-icons" onclick="">add</i>
-        </div>
+            <button class="btn add-content">Ajouter du contenu</button>
+        </details>
+        <button class="btn add-part">Ajouter une partie</button>
     </section>
-    <section class="download">
-        <h2>
-            Télécharger le rapport
-        </h2>
-        <div class="dl-options">
-            <input type="button" value="Format WORD"/>
-            <input type="button" value="Format LaTeX"/>
-            <input type="button" value="Format PDF"/>
+    <section class="download-sect" style="display: none;">
+
+    </section>
+    <section class="question-edit-panel" style="display: none;">
+        <input type="text" id="question_title" name="question_title" required>
+        
+        <div class="content-list">
+
         </div>
         
+        <button class="btn add-content-item">Ajouter un contenu</button>
+        <button class="btn save-question">Enregistrer la question</button>
     </section>
 </div>
